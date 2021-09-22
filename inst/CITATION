@@ -1,0 +1,27 @@
+citHeader("To cite treebalance in publications use:")
+
+bibentry(
+  bibtype  = "Unpublished",
+  title    = "Tree balance indices: a comprehensive survey",
+  author   = c(person("Mareike","Fischer"),
+               person("Lina","Herbst"),
+               person("Sophie","Kersting"),
+               person("Luise","Kühn"),
+               person("Kristina","Wicke")),
+  note     = "will be submitted shortly",
+  url      = "https://treebalance.wordpress.com",
+  year     = "2021"
+)
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "treebalance: Computation of (im)balance indices",
+  author   = c(person("Mareike","Fischer"),
+               person("Lina","Herbst"),
+               person("Sophie","Kersting"),
+               person("Luise","Kühn"),
+               person("Kristina","Wicke")),
+  year     = "2021"
+)
+
+
