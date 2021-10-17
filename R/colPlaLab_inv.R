@@ -2,7 +2,7 @@
 #'
 #' This function generates the unique rooted binary tree \eqn{T} (in phylo
 #' format) that corresponds to the given Colijn-Plazzotta rank \eqn{CP(T)}. It
-#' is the inverse function of colPlaLab(). \cr\cr
+#' is the inverse function of colPlaLab() with the method 'binary'. \cr\cr
 #' \code{colPlaLab()}:
 #' For a given rooted binary tree \eqn{T}, \eqn{CP(T)} is recursively defined as
 #' \eqn{CP(T)=1} if \eqn{T} consists of only one vertex and otherwise

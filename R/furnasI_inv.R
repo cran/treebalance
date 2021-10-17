@@ -20,7 +20,7 @@
 #' @return \code{furnasI_inv} returns the unique tree (in phylo format) for
 #' the given leaf number and rank.
 #'
-#' @author Luise Kuehn
+#' @author Sophie Kersting
 #'
 #' @references G. W. Furnas. The generation of random, binary unordered trees. Journal of Classification, 1984. doi: 10.1007/bf01890123. URL https://doi.org/10.1007/bf01890123.
 #'
@@ -29,43 +29,40 @@
 #'
 #'@export
 furnasI_inv <- memoise::memoise(function(rank, n){
-  if(rank < 1 | rank%%1!=0) stop("Tree cannot be calculated, because rank is not valid.")
-  if(n%%1!=0)               stop("Tree cannot be calculated, because number of leaves is no integer.")
-  if(rank > we_eth(n))      stop("Tree cannot be calculated, because rank is larger than the available number of trees.")
-
-  # initial condition
-  if(n == 1) {return(ape::read.tree(text="();"))}
-
-  # calculate the sizes nL and nR of the two maximal strict pending subtrees
-  nL <- 1
-  we_sum <- we_eth(1)*we_eth(n-1)
-  while(we_sum < rank){
-    nL <- nL + 1
-    we_sum <- we_sum + we_eth(nL)*we_eth(n-nL)
+  if (rank < 1 || rank%%1 != 0)
+    stop("Tree cannot be calculated, because rank is not valid.")
+  if (n<1 || n%%1 != 0)
+    stop("Tree cannot be calculated, because number of leaves is no positive integer.")
+  if (rank > wedEth[n])
+    stop(paste("Tree cannot be calculated, because rank",rank,
+               "is larger than the available number of trees",wedEth[n],
+               "for n =",n,"."))
+  if (n == 1) {
+    return(ape::read.tree(text = "();"))
   }
-  nR <- n - nL
-
-  # define help variable
-  h <- we_sum - we_eth(nL)*we_eth(n-nL)
-
-  # if nL < nR: calculate the ranks of the two subtrees as follows
-  if(nL < nR){
-    rL <- floor((rank-1-h)/we_eth(nR) + 1)
-    rR <- (rank-1-h)%%we_eth(nR) + 1
+  we_nums_mult <- wedEth[1:ceiling(n/2)]*rev(wedEth[floor(n/2):(n-1)])
+  rsums <- cumsum(we_nums_mult)
+  alpha <- min(which(rsums>=rank))
+  rsums_alpha1 <- ifelse(alpha>1,rsums[alpha-1],0)
+  beta <- n-alpha
+  if(alpha<beta){
+    b_temp <- (rank-rsums_alpha1)%%wedEth[beta]
+    a_temp <- (rank-rsums_alpha1-b_temp)/wedEth[beta]
+    if(b_temp>0){
+      r_alpha <- a_temp + 1
+      r_beta <- b_temp
+    } else if(b_temp==0) {
+      r_alpha <- a_temp
+      r_beta <- wedEth[beta]
+    }
+  } else if(alpha==beta) {
+    temp_val <- 2*(wedEth[beta]-rank+rsums_alpha1)+ (1-2*wedEth[beta])^2/4
+    m <- max(c(0,ceiling(wedEth[beta]-1/2-sqrt(temp_val))))
+    r_alpha <- m+1
+    r_beta <- rank-rsums_alpha1-(r_alpha-1)*wedEth[beta]+
+      (r_alpha-2)*(r_alpha-1)/2 +r_alpha -1
   }
-
-  # if nL = nR: calculate the ranks of the two subtrees as follows
-  if(nL == nR){
-    rL <- 1 + max(floor(1/2*(2*we_eth(nL)-1-sqrt((2*we_eth(nL)-1)^2-8*
-                                                   (rank-h-we_eth(nL))))),
-                  floor(1/2*(2*we_eth(nL)+1-sqrt((2*we_eth(nL)+1)^2-8*(rank-h-1)))))
-    rR <- rank - h - 1 - we_eth(nL)*(we_eth(nL)+1)/2 + (we_eth(nL)-rL+1)*(we_eth(nL)-rL+2)/2 + rL
-  }
-
-  # calculate the two subtrees recursively from their ranks and leaf numbers
-  tL <- furnasI_inv(rank=rL, n=nL)
-  tR <- furnasI_inv(rank=rR, n=nR)
-
-  # merge the two subtrees to form the final tree
+  tL <- furnasI_inv(rank = r_alpha, n = alpha)
+  tR <- furnasI_inv(rank = r_beta, n = beta)
   return(tree_merge(tL, tR))
 })

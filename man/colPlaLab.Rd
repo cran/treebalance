@@ -2,36 +2,50 @@
 % Please edit documentation in R/colPlaLab.R
 \name{colPlaLab}
 \alias{colPlaLab}
-\title{Calculation of the Colijn-Plazzotta rank for rooted binary trees}
+\title{Calculation of the Colijn-Plazzotta rank for rooted trees}
 \usage{
-colPlaLab(tree, v = length(tree$tip.label) + 1)
+colPlaLab(tree, method)
 }
 \arguments{
-\item{tree}{A rooted binary tree in phylo format.}
+\item{tree}{A rooted tree in phylo format.}
 
-\item{v}{A vertex of the input tree. The Colijn-Plazzotta rank is calculated
-for the subtree rooted at \eqn{v}. Default assumes that \eqn{v} is the root.}
+\item{method}{The method must be one of: "binary" or "arbitrary". Note that
+(only) in the arbitrary case vertices of out-degree 1 are allowed.}
 }
 \value{
-\code{colPlaLab} returns the Colijn-Plazotta rank of the given (pending sub)tree.
+\code{colPlaLab} returns the Colijn-Plazotta rank of the given tree
+according to the chosen method.
 }
 \description{
 This function calculates the Colijn-Plazzotta rank \eqn{CP(T)} for a
-given rooted binary tree \eqn{T}. \eqn{CP(T)} is recursively defined as
-\eqn{CP(T)=1} if \eqn{T} has only one leaf and otherwise
-\deqn{CP(T)=\frac{1}{2}\cdot CP(T_1)\cdot(CP(T_1)-1)+CP(T_2)+1}{CP(T)=1/2*CP(T1)(CP(T1)-1)+CP(T2)+1} with
-\eqn{CP(T_1) \geq CP(T_2)}{CP(T1)>=CP(T2)} being the ranks of the two pending
-subtrees rooted at the children of the root of \eqn{T}. The rank
+given rooted tree \eqn{T}.\cr\cr
+For a binary tree \eqn{T}, the Colijn-Plazzotta rank \eqn{CP(T)} is
+recursively defined as \eqn{CP(T)=1} if \eqn{T} consists of only
+one leaf and otherwise
+\deqn{CP(T)=\frac{1}{2}\cdot CP(T_1)\cdot(CP(T_1)-1)+CP(T_2)+1}{CP(T)=1/2*CP(T1)(CP(T1)-1)+CP(T2)+1}
+with \eqn{CP(T_1) \geq CP(T_2)}{CP(T1)>=CP(T2)} being the ranks of the two pending
+subtrees rooted at the children of the root of \eqn{T}. This rank
 of \eqn{T} corresponds to its position in the
 lexicographically sorted list of (\eqn{i,j}): (1),(1,1),(2,1),(2,2),(3,1),...
-The Colijn-Plazzotta rank is an imbalance index.\cr\cr
+The Colijn-Plazzotta rank of binary trees has been shown to be an imbalance index.\cr\cr
+For an arbitrary tree \eqn{T} whose maximal number of children of any vertex is \eqn{l},
+the Colijn-Plazzotta rank \eqn{CP(T)} is recursively defined as \eqn{CP(T)=0}
+if \eqn{T} is the empty tree (with no vertices), \eqn{CP(T)=1} if \eqn{T} consists
+of only one leaf and otherwise \eqn{CP(T)=\sum_{i=1}^l binom(CP(T_i)+i-1,i)}{CP(T)=\sum_{i=1,...,l} binom{CP(T_i)+i-1,i}}
+(with \eqn{CP(T_1)\leq ...\leq CP(T_l)}{CP(T_1)<=...<=CP(T_l)}). If there are only \eqn{k<l} pending subtrees
+rooted at the children of the root of \eqn{T}, then \eqn{T_1,...,T_{l-k}} are empty trees,
+i.e. \eqn{CP(T_1)=...=CP(T_{l-k})=0}, and \eqn{CP(T_{l-k+1}),...,CP(T_l)} are the
+increasingly ordered \eqn{CP}-ranks of the \eqn{k} pending subtrees rooted at the
+children of the root of \eqn{T}. Note that if \eqn{k=l} there are no empty trees.\cr\cr
 For \eqn{n=1} the function returns \eqn{CP(T)=1} and a warning.\cr\cr
-Note that problems can sometimes arise for trees with 20 leaves or more, due
+Note that problems can sometimes arise even for trees with small leaf numbers due
 to the limited range of computable values (ranks can reach INF quickly).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
-colPlaLab(tree)
+colPlaLab(tree, method="binary")
+tree <- ape::read.tree(text="(((,),(,)),(,),(,));")
+colPlaLab(tree, method="arbitrary")
 
 }
 \references{
@@ -40,5 +54,5 @@ C. Colijn and G. Plazzotta. A Metric on Phylogenetic Tree Shapes. Systematic Bio
 N. A. Rosenberg. On the Colijn-Plazzotta numbering scheme for unlabeled binary rooted trees. Discrete Applied Mathematics, 2021. doi: 10.1016/j.dam.2020.11.021.
 }
 \author{
-Sophie Kersting
+Sophie Kersting, Luise Kuehn
 }

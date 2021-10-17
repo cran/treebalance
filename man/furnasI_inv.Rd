@@ -38,5 +38,5 @@ furnasI_inv(rank=6,n=8)
 G. W. Furnas. The generation of random, binary unordered trees. Journal of Classification, 1984. doi: 10.1007/bf01890123. URL https://doi.org/10.1007/bf01890123.
 }
 \author{
-Luise Kuehn
+Sophie Kersting
 }

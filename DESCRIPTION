@@ -1,13 +1,13 @@
 Package: treebalance
 Title: Computation of Tree (Im)Balance Indices
-Version: 1.0.0
+Version: 1.1.0
 Description: The aim of the 'R' package 'treebalance' is to provide functions for the computation of 
-    a large variety of (im)balance indices for rooted trees. The package accompanies the 
-	manuscript ''Tree balance indices: a comprehensive survey'' by M. Fischer, L. Herbst, 
-	S. Kersting, L. Kuehn and K. Wicke, which gives a precise definition for the terms 'balance
-	index' and 'imbalance index' (Section 3) and provides an overview of the terminology in this
-	manual (Section 2). For further information on (im)balance indices, see also Fischer et al. 
-	(2021) <https://treebalance.wordpress.com>.
+    a large variety of (im)balance indices for rooted trees. The package accompanies the manuscript 
+	''Tree balance indices: a comprehensive survey'' by M. Fischer, L. Herbst, S. Kersting, 
+	L. Kuehn and K. Wicke (2021) <arXiv:2109.12281>, which gives a precise definition for the terms 
+	'balance index' and 'imbalance index' (Section 3) and provides an overview of the terminology in 
+	this manual (Section 2). For further information on (im)balance indices, see also 
+	Fischer et al. (2021) <https://treebalance.wordpress.com>.
     Considering both established and new (im)balance indices, 'treebalance' provides (among 
     others) functions for calculating the following 18 established indices: the average leaf depth,
 	the B1 and B2 index, the Colijn-Plazzotta rank, the normal, corrected, quadratic and equal 
@@ -40,6 +40,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-09-22 07:18:13 UTC; Luise
+Packaged: 2021-10-17 14:50:05 UTC; Luise
 Repository: CRAN
-Date/Publication: 2021-09-22 19:20:06 UTC
+Date/Publication: 2021-10-17 15:10:02 UTC
