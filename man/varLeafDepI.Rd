@@ -21,7 +21,9 @@ VLD(T)=1/n * \sum_{x in V_L(T)} (\delta(x)-N(T))^2}
 in which \eqn{n} denotes the number of leaves of \eqn{T}, \eqn{V_L(T)}{V_L(T)}
 denotes the set of leaves of \eqn{T}, \eqn{\delta(x)} denotes the depth of
 the leaf \eqn{x} and \eqn{N(T)} denotes the average leaf depth of \eqn{T}.\cr\cr
-For \eqn{n=1} the function returns \eqn{VLD(T)=0} and a warning.
+For \eqn{n=1} the function returns \eqn{VLD(T)=0} and a warning. \cr\cr
+For details on the variance of leaf depths, see 
+also Chapter 7 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_7).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -29,7 +31,7 @@ varLeafDepI(tree)
 
 }
 \references{
-T. M. Coronado, A. Mir, F. Rosselló, and L. Rotger. On Sackin's original proposal: the variance of the leaves' depths as a phylogenetic balance index. BMC Bioinformatics, 21(1), 2020. doi: 10.1186/s12859-020-3405-1. URL https://doi.org/10.1186/s12859-020-3405-1.
+T. M. Coronado, A. Mir, F. Rossello, and L. Rotger. On Sackin's original proposal: the variance of the leaves' depths as a phylogenetic balance index. BMC Bioinformatics, 21(1), 2020. doi: 10.1186/s12859-020-3405-1. URL https://doi.org/10.1186/s12859-020-3405-1.
 
 M. J. Sackin. "Good" and "Bad" Phenograms. Systematic Biology, 21(2):225-226, 1972. doi: 10.1093/sysbio/21.2.225.
 

@@ -20,14 +20,14 @@ the \eqn{i}-th leaf represents. (default is 1,...,1)}
 
 \item{method}{A character string specifying the method that shall be used to
 calculate \eqn{I(T)}. It can be one of the following: "root", "median",
-"total", "mean", "quartdev"}
+"total", "mean", "quartdev".}
 
 \item{correction}{A character string specifying the correction method that
 shall be applied to the I values. It can be one of the following:
-"none", "prime", "w"}
+"none", "prime", "w".}
 
 \item{logs}{Boolean value, (default true), determines if the number of suitable
-nodes (i.e. nodes that fulfill the criteria) and polytomies in the tree should be printed}
+nodes (i.e. nodes that fulfill the criteria) and polytomies in the tree should be printed.}
 }
 \value{
 \code{IbasedI} returns an \eqn{I}-based balance index of the given tree according to the chosen (correction and) method.
@@ -38,7 +38,7 @@ tree \eqn{T}. Note that the leaves of the tree may represent single species or
 groups of more than one species. Thus, a vector is required that contains for
 each leaf the number of species that it represents.
 The tree may contain few polytomies, which are not allowed to concentrate in
-a particular region of the tree (see p. 238 in Fusco(1995)).\cr\cr
+a particular region of the tree (see p. 238 in Fusco and Cronk (1995)).\cr\cr
 Let \eqn{v} be a vertex of \eqn{T} that fulfills the following criteria: a)
 The number of descendant (terminal) species of \eqn{v} is \eqn{k_v>3}
 (note that if each leaf represents only one species \eqn{k_v} is simply the
@@ -61,20 +61,20 @@ if \eqn{k_v} is even and \eqn{I_v=0}. \cr\cr
 The \eqn{I}-based index of \eqn{T} can now be calculated using different methods.
 Here, we only state the version for the \eqn{I'} correction method, but the non-corrected
 version or the \eqn{I_v^w} corrected version works analoguously.
-\enumerate{
-\item root: The \eqn{I'} index of \eqn{T} equals the \eqn{I'_v} value of the root of
+1) root: The \eqn{I'} index of \eqn{T} equals the \eqn{I'_v} value of the root of
 \eqn{T}, i.e. \eqn{I'(T)=I'_{\rho}}{I'(T)=I'_\rho}, provided that the root fulfills the two
 criteria. Note that this method does not fulfil the definition of an (im)balance index.
-\item median: The \eqn{I'} index of \eqn{T} equals the median \eqn{I'_v} value of all
+2) median: The \eqn{I'} index of \eqn{T} equals the median \eqn{I'_v} value of all
 vertices \eqn{v} that fulfill the two criteria.
-\item total: The \eqn{I'} index of \eqn{T} equals the summarised \eqn{I'_v} values of all
+3) total: The \eqn{I'} index of \eqn{T} equals the summarised \eqn{I'_v} values of all
 vertices \eqn{v} that fulfill the two criteria.
-\item mean: The \eqn{I'} index of \eqn{T} equals the mean \eqn{I'_v} value of all
+4) mean: The \eqn{I'} index of \eqn{T} equals the mean \eqn{I'_v} value of all
 vertices \eqn{v} that fulfill the two criteria.
-\item quartile deviation: The \eqn{I'} index of \eqn{T} equals the quartile
+5) quartile deviation: The \eqn{I'} index of \eqn{T} equals the quartile
 deviation (half the difference between third and first quartile) of the \eqn{I'_v} values of all
-vertices \eqn{v} that fulfill the two criteria.
-}
+vertices \eqn{v} that fulfill the two criteria. \cr\cr
+For details on the family of I-based indices, see 
+also Chapter 17 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_17).
 }
 \examples{
 tree <- ape::read.tree(text="(((((,),),),),);")

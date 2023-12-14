@@ -9,7 +9,8 @@
 #' at the inner node \eqn{u}. Note that \eqn{N(T)} can also be
 #' computed from the Sackin index \eqn{S(T)} as \eqn{N(T)=\frac{1}{n}\cdot S(T)}{N(T)=1/n*S(T)}.
 #' The average leaf depth is an imbalance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{N(T)=0} and a warning.
+#' For \eqn{n=1} the function returns \eqn{N(T)=0} and a warning. \cr\cr
+#' For details on the average leaf depth, see also Chapter 6 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_6).
 #'
 #' @param tree A rooted tree in phylo format.
 #'

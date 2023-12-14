@@ -10,7 +10,7 @@ collessI(tree, method = "original")
 \item{tree}{A rooted binary tree in phylo format.}
 
 \item{method}{A character string specifying the version that shall be computed.
-It can be one of the following: "original", "corrected", "quadratic"}
+It can be one of the following: "original", "corrected", "quadratic".}
 }
 \value{
 \code{collessI} returns the Colless index of the given tree according to the chosen method.
@@ -35,7 +35,11 @@ total number of leaves in \eqn{T}. \cr\cr
 The quadratic Colless index \eqn{QC(T)} of \eqn{T} is defined as
 \deqn{QC(T)=\sum_{u\in V_{in}(T)} |n_{u_a}-n_{u_b}|^2}{
 QC(T)=\sum_{u in V_in(T)} |n_{u_a}-n_{u_b}|^2} \cr\cr
-Special cases: For \eqn{n=1} the function returns \eqn{C(T)=I_C(T)=QC(T)=0} and a warning.
+Special cases: For \eqn{n=1} the function returns \eqn{C(T)=I_C(T)=QC(T)=0} and a warning. \cr\cr
+For details on the original, corrected and quadratic Colless indices, see 
+also Chapters 12, 13 and 15 in "Tree balance indices: a comprehensive survey" 
+(https://doi.org/10.1007/978-3-031-39800-1_12, https://doi.org/10.1007/978-3-031-39800-1_13, 
+https://doi.org/10.1007/978-3-031-39800-1_15).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -47,11 +51,11 @@ collessI(tree, method="quadratic")
 \references{
 D. Colless. Review of Phylogenetics: the theory and practice of phylogenetic systematics. Systematic Zoology, 1982. ISSN 00397989.
 
-T. M. Coronado, M. Fischer, L. Herbst, F. Rosselló, and K. Wicke. On the minimum value of the Colless index and the bifurcating trees that achieve it. Journal of Mathematical Biology, 2020.doi: 10.1007/s00285-020-01488-9.
+T. M. Coronado, M. Fischer, L. Herbst, F. Rossello, and K. Wicke. On the minimum value of the Colless index and the bifurcating trees that achieve it. Journal of Mathematical Biology, 2020.doi: 10.1007/s00285-020-01488-9.
 
 S. B. Heard. Patterns in tree balance among cladistic, phenetic, and randomly generated phylogenetic trees. Evolution, 1992. doi: 10.1111/j.1558-5646.1992.tb01171.x.
 
-K. Bartoszek, T. M. Coronado, A. Mir, and F. Rosselló. Squaring within the Colless index yields a better balance index. Mathematical Biosciences, 331:108503, 2021. doi: 10.1016/j.mbs.2020.108503.
+K. Bartoszek, T. M. Coronado, A. Mir, and F. Rossello. Squaring within the Colless index yields a better balance index. Mathematical Biosciences, 331:108503, 2021. doi: 10.1016/j.mbs.2020.108503.
 }
 \author{
 Luise Kuehn and Sophie Kersting

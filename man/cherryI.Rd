@@ -21,7 +21,9 @@ has \eqn{x} leaves as direct descendants, the number of cherries induced by \eqn
 \eqn{binom(x,2)}{binom(x,2)}. \cr\cr
 The cherry index does not fulfill the definition
 of an (im)balance index given in "Tree balance indices: a comprehensive survey"
-(Fischer et al., 2021).
+(Fischer et al., 2023). \cr\cr
+For details on the cherry index, see 
+also Chapter 24 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_24).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

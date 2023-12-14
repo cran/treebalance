@@ -23,7 +23,9 @@ which \eqn{V_{in}(T)}{V_in(T)} denotes the set of inner vertices of \eqn{T}
 and \eqn{n_u} denotes the number of leaves
 in the pending subtree that is rooted at \eqn{u}. An arbitrary logarithm base can be used
 (for binary trees it is common to use base 2).\cr\cr
-For \eqn{n=1} the function returns \eqn{sShape(T)=0} and a warning.
+For \eqn{n=1} the function returns \eqn{sShape(T)=0} and a warning. \cr\cr
+For details on the s-shape statistic, see 
+also Chapter 9 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_9).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

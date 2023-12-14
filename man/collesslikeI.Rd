@@ -47,7 +47,9 @@ mean deviation from the median (\eqn{mdm}),
 the sample variance (\eqn{var}) and the sample standard deviation (\eqn{sd}).\cr
 \code{collesslikeI} also allows the use of other functions for the weight function \eqn{f}
 and the dissimilarity \eqn{D}.\cr\cr
-Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning.
+Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning. \cr\cr
+For details on the family of Colless-like indices, see 
+also Chapter 16 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_16).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -60,7 +62,7 @@ collesslikeI(tree, f.size="myfsize",dissim = "mydissim")
 
 }
 \references{
-A. Mir, L. Rotger, and F. Rosselló. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
+A. Mir, L. Rotger, and F. Rossello. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
 }
 \author{
 Luise Kuehn, Sophie Kersting

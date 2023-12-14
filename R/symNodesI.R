@@ -4,7 +4,9 @@
 #' binary tree \eqn{T}. \eqn{SNI(T)} is defined as the number of inner vertices \eqn{v} that are not
 #' symmetry nodes, i.e. the two pending subtrees rooted at the children of \eqn{v} do not
 #' have the same tree shape.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{SNI(T)=0} and a warning.
+#' For \eqn{n=1} the function returns \eqn{SNI(T)=0} and a warning. \cr\cr
+#' For details on the symmetry nodes index, see 
+#' also Chapter 18 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_18).
 #'
 #' @param tree A rooted binary tree in phylo format.
 #'
@@ -12,7 +14,7 @@
 #'
 #' @author Sophie Kersting
 #'
-#' @references S. J. Kersting and M. Fischer. Measuring tree balance using symmetry nodes — A new balance index and its extremal properties. Mathematical Biosciences, page 108690, 2021.  ISSN 0025-5564.  doi:https://doi.org/10.1016/j.mbs.2021.108690
+#' @references S. J. Kersting, M. Fischer. Measuring tree balance using symmetry nodes — A new balance index and its extremal properties. Mathematical Biosciences, page 108690, 2021.  ISSN 0025-5564.  doi:https://doi.org/10.1016/j.mbs.2021.108690
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

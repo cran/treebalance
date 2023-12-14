@@ -2,7 +2,7 @@
 % Please edit documentation in R/maxWidth.R
 \name{maxWidth}
 \alias{maxWidth}
-\title{Calculation of the maximal width of the tree}
+\title{Calculation of the maximum width of the tree}
 \usage{
 maxWidth(tree)
 }
@@ -10,15 +10,17 @@ maxWidth(tree)
 \item{tree}{A rooted tree in phylo format.}
 }
 \value{
-\code{maxWidth} returns the maximal width of a tree.
+\code{maxWidth} returns the maximum width of a tree.
 }
 \description{
-This function calculates the maximal width \eqn{maxWidth(T)} for a
+This function calculates the maximum width \eqn{maxWidth(T)} for a
 given rooted tree \eqn{T}. The tree must not necessarily be binary.
 \eqn{maxWidth(T)} is defined as \deqn{maxWidth(T)=\max_{i=0,...,h(T)} w(i)}{maxWidth(T)=max_{i=0,...,h(T)} w(i)}
 in which \eqn{h(T)} denotes the height of the tree \eqn{T} and \eqn{w(i)} denotes
-the number of vertices in \eqn{T} that have depth \eqn{i}. The maximal width
-is a balance index.
+the number of vertices in \eqn{T} that have depth \eqn{i}. The maximum width
+is a balance index. \cr\cr
+For details on the maximum width, see 
+also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

@@ -2,23 +2,20 @@
 % Please edit documentation in R/colPlaLab.R
 \name{colPlaLab}
 \alias{colPlaLab}
-\title{Calculation of the Colijn-Plazzotta rank for rooted trees}
+\title{Calculation of the Colijn-Plazzotta rank for rooted binary trees}
 \usage{
-colPlaLab(tree, method)
+colPlaLab(tree)
 }
 \arguments{
-\item{tree}{A rooted tree in phylo format.}
-
-\item{method}{The method must be one of: "binary" or "arbitrary". Note that
-(only) in the arbitrary case vertices of out-degree 1 are allowed.}
+\item{tree}{A rooted binary tree in phylo format.}
 }
 \value{
-\code{colPlaLab} returns the Colijn-Plazotta rank of the given tree
-according to the chosen method.
+\code{colPlaLab} returns the Colijn-Plazotta rank of the given tree. Since the values can get quite large, the
+function returns them in big.z format (package gmp).
 }
 \description{
 This function calculates the Colijn-Plazzotta rank \eqn{CP(T)} for a
-given rooted tree \eqn{T}.\cr\cr
+given rooted binary tree \eqn{T}.\cr\cr
 For a binary tree \eqn{T}, the Colijn-Plazzotta rank \eqn{CP(T)} is
 recursively defined as \eqn{CP(T)=1} if \eqn{T} consists of only
 one leaf and otherwise
@@ -28,24 +25,15 @@ subtrees rooted at the children of the root of \eqn{T}. This rank
 of \eqn{T} corresponds to its position in the
 lexicographically sorted list of (\eqn{i,j}): (1),(1,1),(2,1),(2,2),(3,1),...
 The Colijn-Plazzotta rank of binary trees has been shown to be an imbalance index.\cr\cr
-For an arbitrary tree \eqn{T} whose maximal number of children of any vertex is \eqn{l},
-the Colijn-Plazzotta rank \eqn{CP(T)} is recursively defined as \eqn{CP(T)=0}
-if \eqn{T} is the empty tree (with no vertices), \eqn{CP(T)=1} if \eqn{T} consists
-of only one leaf and otherwise \eqn{CP(T)=\sum_{i=1}^l binom(CP(T_i)+i-1,i)}{CP(T)=\sum_{i=1,...,l} binom{CP(T_i)+i-1,i}}
-(with \eqn{CP(T_1)\leq ...\leq CP(T_l)}{CP(T_1)<=...<=CP(T_l)}). If there are only \eqn{k<l} pending subtrees
-rooted at the children of the root of \eqn{T}, then \eqn{T_1,...,T_{l-k}} are empty trees,
-i.e. \eqn{CP(T_1)=...=CP(T_{l-k})=0}, and \eqn{CP(T_{l-k+1}),...,CP(T_l)} are the
-increasingly ordered \eqn{CP}-ranks of the \eqn{k} pending subtrees rooted at the
-children of the root of \eqn{T}. Note that if \eqn{k=l} there are no empty trees.\cr\cr
 For \eqn{n=1} the function returns \eqn{CP(T)=1} and a warning.\cr\cr
 Note that problems can sometimes arise even for trees with small leaf numbers due
-to the limited range of computable values (ranks can reach INF quickly).
+to the limited range of computable values (ranks can reach INF quickly). \cr\cr
+For details on the Colijn-Plazzotta rank, see 
+also Chapter 21 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_21).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
-colPlaLab(tree, method="binary")
-tree <- ape::read.tree(text="(((,),(,)),(,),(,));")
-colPlaLab(tree, method="arbitrary")
+colPlaLab(tree)
 
 }
 \references{

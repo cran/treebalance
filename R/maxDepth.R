@@ -1,15 +1,17 @@
-#' Calculation of the maximal depth of the tree
+#' Calculation of the maximum depth of the tree
 #'
-#' This function calculates the maximal depth of any vertex in a rooted tree \eqn{T}, which
+#' This function calculates the maximum depth of any vertex in a rooted tree \eqn{T}, which
 #' is at the same time its height \eqn{h(T)}. The tree must not necessarily be binary. Formally,
 #' \eqn{h(T)} is defined as \deqn{h(T)=\max_{v\in V(T)} \delta(v)}{h(T)=max_{v in V(T)} depth(v)}
 #' with \eqn{\delta(v)}{depth(v)} being the depth of the vertex \eqn{v}.
-#' The maximal depth is an imbalance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{h(T)=0} and a warning.
+#' The maximum depth is an imbalance index.\cr\cr
+#' For \eqn{n=1} the function returns \eqn{h(T)=0} and a warning. \cr\cr
+#' For details on the maximum depth, see 
+#' also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
 #'
 #' @param tree A rooted tree in phylo format.
 #'
-#' @return \code{maxDepth} returns the maximal depth, i.e. height, of a tree.
+#' @return \code{maxDepth} returns the maximum depth, i.e. height, of a tree.
 #'
 #' @author Luise Kuehn, Sophie Kersting
 #'

@@ -12,7 +12,9 @@
 #' \eqn{APP(T)=\frac{2}{n}\cdot S(T)-\frac{4}{n(n-1)}\cdot TCI(T)}{APP(T)=2/n*S(T)-4/(n(n-1))*TCI(T)}
 #' enabling efficient computation.\cr\cr
 #' The area per pair index does not fulfill the definition of an (im)balance
-#' index given in "Tree balance indices: a comprehensive survey" (Fischer et al., 2021).
+#' index given in "Tree balance indices: a comprehensive survey" (Fischer et al., 2023). \cr\cr
+#' For details on the area per pair index, see 
+#' also Chapter 24 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_24).
 #'
 #' @param tree A rooted tree in phylo format.
 #'
@@ -20,7 +22,7 @@
 #'
 #' @author Luise Kuehn
 #'
-#' @references T. Araújo Lima, F. M. D. Marquitti, and M. A. M. de Aguiar. Measuring Tree Balance with Normalized Tree Area. arXiv e-prints, art. arXiv:2008.12867, 2020.
+#' @references T. Araujo Lima, F. M. D. Marquitti, and M. A. M. de Aguiar. Measuring Tree Balance with Normalized Tree Area. arXiv e-prints, art. arXiv:2008.12867, 2020.
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

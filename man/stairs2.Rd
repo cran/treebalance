@@ -21,7 +21,9 @@ in which \eqn{V_{in}(T)}{V_in(T)} denotes the set of all inner vertices
 of \eqn{T}, and in which \eqn{n_{u_a}\geq n_{u_b}}{n_ua >= n_ub} denote the number of leaves
 in the two pending subtrees that are
 rooted at the direct descendants of \eqn{u}. The stairs2 value is an imbalance index. \cr\cr
-Special cases: For \eqn{n=1}, the function returns \eqn{st2(T)=0} and a warning.
+Special cases: For \eqn{n=1}, the function returns \eqn{st2(T)=0} and a warning. \cr\cr
+For details on the stairs2 value, see 
+also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -29,7 +31,7 @@ stairs2(tree)
 
 }
 \references{
-C. Colijn and J. Gardy. Phylogenetic tree shapes resolve disease transmission patterns. Evolution, Medicine, and Public Health, 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
+C. Colijn, J. Gardy. Phylogenetic tree shapes resolve disease transmission patterns. Evolution, Medicine, and Public Health, 2014(1):96-108, 2014. ISSN 2050-6201. doi: 10.1093/emph/eou018.
 }
 \author{
 Sophie Kersting

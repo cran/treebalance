@@ -18,10 +18,12 @@ tree \eqn{T}. The tree must not necessarily be binary. \eqn{S(T)} is defined as
 \deqn{S(T)=\sum_{x\in V_L(T)} \delta(x)=\sum_{u\in V_{in}(T)} n_u}{S(T)=\sum_{x in V_L(T)} depth(x)=\sum_{u in V_in(T)} (n_u)} in
 which \eqn{V_L(T)} denotes the leaf set of \eqn{T}, \eqn{\delta(x)}{depth(x)}
 denotes the depth of the leaf \eqn{x}, \eqn{V_{in}(T)}{V_in(T)} denotes the set of
-inner vertices in \eqn{T} and \eqn{n_u} denotes the number of leaves
+inner vertices in \eqn{T}, and \eqn{n_u} denotes the number of leaves
 in the pending subtree that is rooted at \eqn{u}. The Sackin index is an
 imbalance index.\cr\cr
-For \eqn{n=1} the function returns \eqn{S(T)=0} and a warning.
+For \eqn{n=1} the function returns \eqn{S(T)=0} and a warning. \cr\cr
+For details on the Sackin index, see 
+also Chapter 5 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_5).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

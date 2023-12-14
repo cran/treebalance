@@ -24,22 +24,22 @@ cardinality 4. Let \eqn{T(Q)} denote the rooted quartet on \eqn{Q\in P_4}
 that is obtained by taking the subgraph of \eqn{T} that is induced by
 \eqn{Q} and supressing its outdegree-1 vertices. \eqn{T(Q)} can have one of
 the five following shapes:\cr\cr
-- \eqn{Q_0^*}: This is the caterpillar tree shape on 4 leaves, i.e.
-\code{"(,(,(,)));"} in Newick format. It has 2 automorphisms.\cr
-- \eqn{Q_1^*}: This is the tree shape on 4 leaves that has three pending
-subtrees rooted at the children of the root of \eqn{T}, one of them being
-a cherry and the other two
-being single vertices, i.e. \code{"((,),,);"} in Newick format. It has 4
-automorphisms.\cr
-- \eqn{Q_2^*}: This is the tree shape on 4 leaves that has two pending
-subtrees rooted at the children of the root of \eqn{T}, one of them being
-a star tree shape on 3 leaves
-and the other one being a single vertex, i.e. \code{"((,,),);"} in Newick
-format. It has 6 automorphisms.\cr
-- \eqn{Q_3^*}: This is the fully balanced binary tree shape on 4 leaves,
-i.e. \code{"((,),(,));"} in Newick format. Its has 8 automorphisms.\cr
-- \eqn{Q_4^*}: This is the star tree shape on 4 leaves, i.e.
-\code{"(,,,);"} in Newick format. It has 24 automorphisms.\cr\cr
+    - \eqn{Q_0^*}: This is the caterpillar tree shape on 4 leaves, i.e.
+    \code{"(,(,(,)));"} in Newick format. It has 2 automorphisms.\cr
+    - \eqn{Q_1^*}: This is the tree shape on 4 leaves that has three pending
+    subtrees rooted at the children of the root of \eqn{T}, one of them being
+    a cherry and the other two
+    being single vertices, i.e. \code{"((,),,);"} in Newick format. It has 4
+    automorphisms.\cr
+    - \eqn{Q_2^*}: This is the tree shape on 4 leaves that has two pending
+    subtrees rooted at the children of the root of \eqn{T}, one of them being
+    a star tree shape on 3 leaves
+    and the other one being a single vertex, i.e. \code{"((,,),);"} in Newick
+    format. It has 6 automorphisms.\cr
+    - \eqn{Q_3^*}: This is the fully balanced binary tree shape on 4 leaves,
+    i.e. \code{"((,),(,));"} in Newick format. It has 8 automorphisms.\cr
+    - \eqn{Q_4^*}: This is the star tree shape on 4 leaves, i.e.
+    \code{"(,,,);"} in Newick format. It has 24 automorphisms.\cr\cr
 \eqn{T(Q)} is assigned an rQI-value based on its shape, i.e. \eqn{rQI(T(Q))=q_i}
 if \eqn{T(Q)} has the shape \eqn{Q_i^*}. The values \eqn{q_0,...,q_4} are
 chosen in such a way that they increase with the symmetry of the shape as
@@ -48,7 +48,9 @@ suggested the values \eqn{q_0=0} and \eqn{q_i=i} or \eqn{q_i=2^i} for \eqn{i=1,.
 The rooted quartet index \eqn{rQI(T)} of the tree \eqn{T} is then defined as
 the sum of the rQI-values of its rooted quartets:
 \deqn{rQI(T)=\sum_{Q\in P_4} rQI(T(Q))}{rQI(T)=\sum rQI(T(Q)) over Q in P_4}
-The rooted quartet index is a balance index.
+The rooted quartet index is a balance index. \cr\cr
+For details on the rooted quartet index, see 
+also Chapter 20 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_20).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -56,7 +58,7 @@ rQuartetI(tree)
 
 }
 \references{
-T. M. Coronado, A. Mir, F. Rosselló, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
+T. M. Coronado, A. Mir, F. Rossello, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
 }
 \author{
 Sophie Kersting

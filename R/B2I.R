@@ -11,7 +11,9 @@
 #' denoting the set of ancestors of \eqn{x} excluding
 #' \eqn{x}. \eqn{child(v)} denotes the set of children of the inner vertex \eqn{v}.\cr
 #' The \eqn{B2} index is a balance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{B2(T)=0} and a warning.
+#' For \eqn{n=1} the function returns \eqn{B2(T)=0} and a warning. \cr\cr
+#' For details on the B2 index, see 
+#' also Chapter 11 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_11).
 #'
 #' @param tree A rooted tree in phylo format.
 #' @param logbase The base that shall be used for the logarithm. For binary
@@ -22,14 +24,9 @@
 #' @author Sophie Kersting, Luise Kuehn
 #'
 #' @references K.-T. Shao and R. R. Sokal. Tree Balance. Systematic Zoology, 39(3):266, 1990. \cr doi: 10.2307/2992186.
-#' @references P.-M. Agapow and A. Purvis. Power of Eight Tree Shape Statistics to Detect Nonrandom
-#'     Diversification: A Comparison by Simulation of Two Models of Cladogenesis. Systematic Biology,
-#'     51(6):866-872, 2002.doi: 10.1080/10635150290102564. \cr URL https://doi.org/10.1080/10635150290102564.
-#' @references M. Hayati, B. Shadgar, and L. Chindelevitch. A new resolution function to evaluate tree shape
-#'     statistics. PLOS ONE, 14(11):e0224197, 2019. doi: 10.1371/journal.pone.0224197.\cr
-#'     URL https://doi.org/10.1371/journal.pone.0224197.
-#' @references M. Kirkpatrick and M. Slatkin. Searching for evolutionary patterns in the shape of a
-#'     phylogenetic tree. Evolution, 47(4):1171-1181, 1993. doi: 10.1111/j.1558-5646.1993.tb02144.x.
+#' @references P.-M. Agapow and A. Purvis. Power of Eight Tree Shape Statistics to Detect Nonrandom Diversification: A Comparison by Simulation of Two Models of Cladogenesis. Systematic Biology, 51(6):866-872, 2002.doi: 10.1080/10635150290102564. \cr URL https://doi.org/10.1080/10635150290102564.
+#' @references M. Hayati, B. Shadgar, and L. Chindelevitch. A new resolution function to evaluate tree shape statistics. PLOS ONE, 14(11):e0224197, 2019. doi: 10.1371/journal.pone.0224197.\cr URL https://doi.org/10.1371/journal.pone.0224197.
+#' @references M. Kirkpatrick and M. Slatkin. Searching for evolutionary patterns in the shape of a phylogenetic tree. Evolution, 47(4):1171-1181, 1993. doi: 10.1111/j.1558-5646.1993.tb02144.x.
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

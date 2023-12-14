@@ -8,7 +8,9 @@
 #' \eqn{h(T_u)} denotes the height of the pending subtree rooted at \eqn{u}.
 #' When restricted to binary trees, the \eqn{B1} index is a balance index. For
 #' arbitrary trees it does not fulfill the definition of an (im)balance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{B1(T)=0} and a warning.
+#' For \eqn{n=1} the function returns \eqn{B1(T)=0} and a warning. \cr\cr
+#' For details on the B1 index, see 
+#' also Chapter 10 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_10).
 #'
 #' @param tree A rooted tree in phylo format.
 #'

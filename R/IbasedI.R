@@ -5,7 +5,7 @@
 #' groups of more than one species. Thus, a vector is required that contains for
 #' each leaf the number of species that it represents.
 #' The tree may contain few polytomies, which are not allowed to concentrate in
-#' a particular region of the tree (see p. 238 in Fusco(1995)).\cr\cr
+#' a particular region of the tree (see p. 238 in Fusco and Cronk (1995)).\cr\cr
 #' Let \eqn{v} be a vertex of \eqn{T} that fulfills the following criteria: a)
 #' The number of descendant (terminal) species of \eqn{v} is \eqn{k_v>3}
 #' (note that if each leaf represents only one species \eqn{k_v} is simply the
@@ -39,19 +39,21 @@
 #' vertices \eqn{v} that fulfill the two criteria.
 #' 5) quartile deviation: The \eqn{I'} index of \eqn{T} equals the quartile
 #' deviation (half the difference between third and first quartile) of the \eqn{I'_v} values of all
-#' vertices \eqn{v} that fulfill the two criteria.
+#' vertices \eqn{v} that fulfill the two criteria. \cr\cr
+#' For details on the family of I-based indices, see 
+#' also Chapter 17 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_17).
 #'
 #' @param tree A rooted tree in phylo format (with possibly few polytomies).
 #' @param specnum A vector whose \eqn{i}-th entry is the number of species that
 #' the \eqn{i}-th leaf represents. (default is 1,...,1)
 #' @param method A character string specifying the method that shall be used to
 #' calculate \eqn{I(T)}. It can be one of the following: "root", "median",
-#' "total", "mean", "quartdev"
+#' "total", "mean", "quartdev".
 #' @param correction A character string specifying the correction method that
 #' shall be applied to the I values. It can be one of the following:
-#' "none", "prime", "w"
+#' "none", "prime", "w".
 #' @param logs Boolean value, (default true), determines if the number of suitable
-#' nodes (i.e. nodes that fulfill the criteria) and polytomies in the tree should be printed
+#' nodes (i.e. nodes that fulfill the criteria) and polytomies in the tree should be printed.
 #'
 #' @return \code{IbasedI} returns an \eqn{I}-based balance index of the given tree according to the chosen (correction and) method.
 #'

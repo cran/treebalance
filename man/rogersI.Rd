@@ -21,7 +21,9 @@ in which \eqn{V_{in}(T)}{V_in(T)} denotes the set of all inner vertices
 of \eqn{T}, and in which \eqn{n_{u_a}}{n_ua}
 and \eqn{n_{u_b}}{n_ub} denote the number of leaves in the two pending subtrees that are
 rooted at the direct descendants of \eqn{u}. \cr
-Special cases: For \eqn{n=1}, the function returns \eqn{J(T)=0} and a warning.
+Special cases: For \eqn{n=1}, the function returns \eqn{J(T)=0} and a warning. \cr\cr
+For details on the Rogers J index, see 
+also Chapter 19 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_19).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

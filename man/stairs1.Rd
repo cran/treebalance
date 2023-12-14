@@ -22,7 +22,9 @@ in which \eqn{V_{in}(T)}{V_in(T)} denotes the set of all inner vertices
 of \eqn{T}, and in which \eqn{n_{u_a}}{n_ua}
 and \eqn{n_{u_b}}{n_ub} denote the number of leaves in the two pending subtrees that are
 rooted at the direct descendants of \eqn{u}. The stairs1 value is an imbalance index. \cr\cr
-Special cases: For \eqn{n=1}, the function returns \eqn{st1(T)=0} and a warning.
+Special cases: For \eqn{n=1}, the function returns \eqn{st1(T)=0} and a warning. \cr\cr
+For details on the stairs1 value, see 
+also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -30,7 +32,7 @@ stairs1(tree)
 
 }
 \references{
-M. M. Norström, M. C. Prosperi, R. R. Gray, A. C. Karlsson, and M. Salemi. PhyloTempo: A Set of R Scripts for Assessing and Visualizing Temporal Clustering in Genealogies Inferred from Serially Sampled Viral Sequences. Evolutionary Bioinformatics, 8:EBO.S9738, 2012. ISSN 1176-9343, 1176-9343. doi:10.4137/EBO.S9738.
+M. M. Norstrom, M. C. Prosperi, R. R. Gray, A. C. Karlsson, and M. Salemi. PhyloTempo: A Set of R Scripts for Assessing and Visualizing Temporal Clustering in Genealogies Inferred from Serially Sampled Viral Sequences. Evolutionary Bioinformatics, 8:EBO.S9738, 2012. ISSN 1176-9343, 1176-9343. doi:10.4137/EBO.S9738.
 }
 \author{
 Sophie Kersting

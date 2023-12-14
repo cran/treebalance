@@ -1,0 +1,48 @@
+#' Calculation of the modified cherry index for rooted binary trees
+#'
+#' This function calculates the modified cherry index \eqn{mChI(T)} for a
+#' given rooted binary tree \eqn{T}. Note that compared to the original cherry index \eqn{ChI(T)}, 
+#' the modified cherry index is defined for binary trees only.
+#' \eqn{mChI(T)} is defined as \eqn{n-2\cdot ChI(T)}{n-2*ChI(T)}, i.e. it counts the 
+#' number of leaves of the tree which are not in a cherry. A cherry
+#' is a pair of leaves that have the same direct ancestor. \cr\cr
+#' The modified cherry index does not fulfill the definition
+#' of an (im)balance index given in "Tree balance indices: a comprehensive survey"
+#' (Fischer et al., 2023). \cr\cr
+#' For details on the modified cherry index, see 
+#' also Chapter 24 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_24).
+#'
+#' @param tree A rooted binary tree in phylo format.
+#'
+#' @return \code{mCherryI} returns the modified cherry index of the given tree.
+#'
+#' @author Luise Kuehn
+#'
+#' @references S. J. Kersting, M. Fischer. Measuring tree balance using symmetry nodes — A new balance index and its extremal properties. Mathematical Biosciences, 341:108690, 2021. doi: 10.1016/j.mbs.2021.108690.
+#' 
+#' @examples
+#' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
+#' mCherryI(tree)
+#' tree <- ape::read.tree(text="((,),((((,),),),(,)));")
+#' mCherryI(tree)
+#'
+#' @export
+mCherryI <- function(tree){
+  if (!inherits(tree,"phylo")) stop("The input tree must be in phylo-format.")
+  if (!is_binary(tree))        stop("The input tree is not binary.")
+  n <- length(tree$tip.label)
+  
+  if(n==1){
+    return(1)
+  }
+  Descs <- getDescMatrix(tree)
+  numb_cherries <- 0
+  for(row in (n+1):(n+tree$Nnode)){
+    numbOfDescLeaves <- sum(is.na(Descs[stats::na.omit(Descs[row,]),1]))
+    if(numbOfDescLeaves>=2){
+      numb_cherries <- numb_cherries + choose(numbOfDescLeaves,2)
+    }
+  }
+  return(n - 2*numb_cherries)
+}
+

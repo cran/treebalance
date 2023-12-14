@@ -119,7 +119,7 @@ returns ranking. Uses bucket sort.
 \code{cPL_inv} - Returns the binary tree that belongs to the input label in an incomplete
 Newick format.
 
-\code{maxDepthLeaf} - Returns the maximal depth of a leaf in the subtree that
+\code{maxDepthLeaf} - Returns the maximumy< depth of a leaf in the subtree that
 is rooted at \eqn{v}.
 
 \code{get.subtreesize} - Creates a vector that contains at the \eqn{i}-th position

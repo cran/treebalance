@@ -2,13 +2,13 @@
 #'
 #' This function generates the unique rooted binary tree \eqn{T} (in phylo
 #' format) that corresponds to the given Colijn-Plazzotta rank \eqn{CP(T)}. It
-#' is the inverse function of colPlaLab() with the method 'binary'. \cr\cr
+#' is the inverse function of colPlaLab(). \cr\cr
 #' \code{colPlaLab()}:
 #' For a given rooted binary tree \eqn{T}, \eqn{CP(T)} is recursively defined as
 #' \eqn{CP(T)=1} if \eqn{T} consists of only one vertex and otherwise
 #' \eqn{CP(T)=\frac{1}{2}\cdot CP(T_1)\cdot(CP(T_1)-1)+CP(T_2)+1}{CP(T)=1/2*CP(T1)(CP(T1)-1)+CP(T2)+1} with
 #' \eqn{CP(T_1) \geq CP(T_2)}{CP(T1)>=CP(T2)} being the
-#' ranks of the two pending subtrees rooted at the children of \eqn{T}.
+#' ranks of the two pending subtrees rooted at the children of the root of \eqn{T}.
 #' The rank \eqn{CP(T)} of \eqn{T} corresponds to its position in the
 #' lexicographically sorted list of (\eqn{i,j}): (1),(1,1),(2,1),(2,2),(3,1),... \cr\cr
 #' \code{colPlaLab_inv()}:
@@ -20,7 +20,9 @@
 #' until there are no more vertices to split. \cr
 #' For \eqn{CP=1} the function returns the smallest possible tree in the
 #' phylo format: the tree consisting of a single edge.\cr\cr
-#' Note that problems can arise for extremely high input values (>10e+18).
+#' Note that problems can arise for extremely high input values (>10e+18). \cr\cr
+#' For details on the Colijn-Plazzotta rank, see 
+#' also Chapter 21 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_21).
 #'
 #' @param rank An integer denoting the Colijn-Plazzotta rank of the sought tree.
 #'
@@ -34,7 +36,7 @@
 #' @examples
 #' colPlaLab_inv(22)
 #'
-#'@export
+#' @export
 colPlaLab_inv <- function(rank){
   if(rank == 1) { # phylo format has no tree with a single node (only single edge)
     return(ape::read.tree(text="();"))

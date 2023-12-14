@@ -21,7 +21,7 @@
 #'     and the other one being a single vertex, i.e. \code{"((,,),);"} in Newick
 #'     format. It has 6 automorphisms.\cr
 #'     - \eqn{Q_3^*}: This is the fully balanced binary tree shape on 4 leaves,
-#'     i.e. \code{"((,),(,));"} in Newick format. Its has 8 automorphisms.\cr
+#'     i.e. \code{"((,),(,));"} in Newick format. It has 8 automorphisms.\cr
 #'     - \eqn{Q_4^*}: This is the star tree shape on 4 leaves, i.e.
 #'     \code{"(,,,);"} in Newick format. It has 24 automorphisms.\cr\cr
 #' \eqn{T(Q)} is assigned an rQI-value based on its shape, i.e. \eqn{rQI(T(Q))=q_i}
@@ -32,7 +32,9 @@
 #' The rooted quartet index \eqn{rQI(T)} of the tree \eqn{T} is then defined as
 #' the sum of the rQI-values of its rooted quartets:
 #' \deqn{rQI(T)=\sum_{Q\in P_4} rQI(T(Q))}{rQI(T)=\sum rQI(T(Q)) over Q in P_4}
-#' The rooted quartet index is a balance index.
+#' The rooted quartet index is a balance index. \cr\cr
+#' For details on the rooted quartet index, see 
+#' also Chapter 20 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_20).
 #'
 #' @param tree A rooted tree in phylo format.
 #' @param shapeVal A vector of length 5 containing the shape values \eqn{q_0,...,q_4}.
@@ -42,7 +44,7 @@
 #'
 #' @author Sophie Kersting
 #'
-#' @references T. M. Coronado, A. Mir, F. Rosselló, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
+#' @references T. M. Coronado, A. Mir, F. Rossello, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

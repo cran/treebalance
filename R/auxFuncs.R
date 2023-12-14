@@ -183,7 +183,7 @@ cPL_inv <- function(label)
 }
 #' Auxiliary functions
 #'
-#' \code{maxDepthLeaf} - Returns the maximal depth of a leaf in the subtree that
+#' \code{maxDepthLeaf} - Returns the maximumy< depth of a leaf in the subtree that
 #' is rooted at \eqn{v}.
 #'
 #' @rdname auxFuncs
@@ -298,11 +298,10 @@ getfurranks <- function(tree){
     }
   }
   # get Wedderburn-Etherington numbers for 1:n
-  we <- treebalance::wedEth[1:n]
-
+  we <- gmp::as.bigz(treebalance::wedEth[1:n])
+  
   # get for each vertex i the rank of the subtree rooted at i
-  subranks <- rep(NA, n+tree$Nnode)
-  subranks[1:n] <- 1
+  subranks <- c(rep(gmp::as.bigz(1),n), rep(NA,tree$Nnode))
   for(i in nodeorder) {
     if(i <= n) next
     descs <- Descs[i,1:2]
@@ -322,20 +321,22 @@ getfurranks <- function(tree){
     rL <- rLrR[1]
     rR <- rLrR[2]
     # define auxiliary variable
-    h <- 0
+    h <- gmp::as.bigz(0)
     if(nL > 1) {
-      h <- sum(we[1:(nL-1)]*we[(subleafnum[i]-1):(nR+1)])
+      for (j in 1:(nL-1)) {
+        h <- gmp::add.bigz(h, gmp::mul.bigz(we[j],we[subleafnum[i]-j]))
+      }
     }
     # if left ('light') and right ('heavy') subtree do not have the same number of leaves
     if(nL < nR) {
-      subranks[i] <- h + (rL-1)*we[nR] + rR - 1 + 1
+      subranks[i] <- gmp::add.bigz(h, gmp::as.bigz(rL-1)*we[nR]) + rR - 1 + 1
     }
     # if left ('light') and right ('heavy') subtree have the same number of leaves
     if(nL == nR) {
-      subranks[i] <- h + we[nL]*(we[nL]+1)/2 - (we[nL]-rL+1)*(we[nL]-rL+2)/2 + rR - rL + 1
+      subranks[i] <- gmp::sub.bigz(gmp::add.bigz(h, gmp::as.bigz(we[nL]*(we[nL]+1)/2)), (we[nL]-rL+1)*(we[nL]-rL+2)/2) + rR - rL + 1
     }
   }
-
+  
   # return final vector
   return(subranks)
 }

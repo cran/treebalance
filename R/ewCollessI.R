@@ -8,7 +8,9 @@
 #' and in which \eqn{n_u}, \eqn{n_{u_a}}{n_ua} and \eqn{n_{u_b}}{n_ub} denote the number of
 #' leaves in the pending subtrees that are rooted at \eqn{u} and the two direct
 #' descendants of \eqn{u}. The equal weights Colless index is an imbalance index.\cr\cr
-#' For \eqn{n=1} and \eqn{n=2} the function returns \eqn{I_2(T)=0} and a warning.
+#' For \eqn{n=1} and \eqn{n=2} the function returns \eqn{I_2(T)=0} and a warning. \cr\cr
+#' For details on the equal weigths Colless index, see 
+#' also Chapter 14 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_14).
 #'
 #' @param tree A rooted binary tree in phylo format.
 #'
