@@ -8,9 +8,7 @@
 #' \eqn{h(T_u)} denotes the height of the pending subtree rooted at \eqn{u}.
 #' When restricted to binary trees, the \eqn{B1} index is a balance index. For
 #' arbitrary trees it does not fulfill the definition of an (im)balance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{B1(T)=0} and a warning. \cr\cr
-#' For details on the B1 index, see 
-#' also Chapter 10 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_10).
+#' For \eqn{n=1} the function returns \eqn{B1(T)=0} and a warning.
 #'
 #' @param tree A rooted tree in phylo format.
 #'
@@ -33,11 +31,11 @@ B1I <- function(tree){
     warning("The function might not deliver accurate results for n=1.")
     return(0)
   }
-  if(n == 2) return(0)
+  if(n == 2 || tree$Nnode == 1) return(0)
 
   Descs <- getDescMatrix(tree)
   depthResults <- getNodesOfDepth(mat=Descs,root=n+1,n=n)
-  maxDepthSubtree <- rep(NA,length(n+tree$Nnode))
+  maxDepthSubtree <- rep(NA,n+tree$Nnode)
   nodeorder <- rev(stats::na.omit(as.vector(t(depthResults$nodesOfDepth))))
   for(v in nodeorder){
     if(is.na(Descs[v,1])){

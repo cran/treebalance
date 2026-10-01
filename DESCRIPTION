@@ -1,45 +1,51 @@
 Package: treebalance
 Title: Computation of Tree (Im)Balance Indices
-Version: 1.2.0
+Version: 1.2.2
 Description: The aim of the 'R' package 'treebalance' is to provide functions for the computation of 
     a large variety of (im)balance indices for rooted trees. The package accompanies the book 
-    ''Tree balance indices: a comprehensive survey'' by M. Fischer, L. Herbst, S. Kersting, 
-    L. Kuehn and K. Wicke (2023) <ISBN: 978-3-031-39799-8>, <doi:10.1007/978-3-031-39800-1>, which gives a precise definition for the terms 'balance index' and 'imbalance index' (Chapter 4)
-    and provides an overview of the terminology in this manual (Chapter 2). For further information 
-    on (im)balance indices, see also Fischer et al. (2021) <https://treebalance.wordpress.com>.
+    ''Tree Balance Indices - A Comprehensive Survey'' by M. Fischer, L. Herbst, S. Kersting,
+    L. Kuehn and K. Wicke (2023) <doi:10.1007/978-3-031-39800-1>, which gives a precise
+    definition for the terms 'balance index' and 'imbalance index' (Chapter 4) and provides an
+    overview of the terminology in this manual (Chapter 2).
+    For further information on (im)balance indices, see also Fischer et al. (2021)
+    <https://treebalance.wordpress.com>.
     Considering both established and new (im)balance indices, 'treebalance' provides (among 
     others) functions for calculating the following 18 established indices and index families: the 
     average leaf depth, the B1 and B2 index, the Colijn-Plazzotta rank, the normal, corrected, 
     quadratic and equal weights Colless index, the family of Colless-like indices, the family of 
     I-based indices, the Rogers J index, the Furnas rank, the rooted quartet index, the s-shape 
     statistic, the Sackin index, the symmetry nodes index, the total cophenetic index and the 
-    variance of leaf depths. Additionally, we include 9 tree shape statistics that satisfy the 
+    variance of leaf depths. Additionally, we include 6 tree shape statistics that satisfy the 
     definition of an (im)balance index but have not been thoroughly analyzed in terms of tree 
-    balance in the literature yet. These are: the total internal path length, the total path length, 
-    the average vertex depth, the maximum width, the modified maximum difference in widths, the 
-    maximum depth, the maximum width over maximum depth, the stairs1 and the stairs2 index. 
+    balance in the literature yet. These are: the maximum width, the modified maximum difference in
+    widths, the maximum depth, the maximum width over maximum depth, the stairs1 and the stairs2 
+    index. 
     As input, most functions of 'treebalance' require a rooted (phylogenetic) tree in 'phylo' format 
     (as introduced in 'ape' 1.9 in November 2006). 'phylo' is used to store (phylogenetic) trees 
     with no vertices of out-degree one. For further information on the format we kindly refer the 
-    reader to E. Paradis (2012) <http://ape-package.ird.fr/misc/FormatTreeR_24Oct2012.pdf>.
-Authors@R: c(person("Mareike", "Fischer", role = "aut"),
-	     person("Lina", "Herbst", role = "aut"),
-	     person("Sophie", "Kersting", role = "aut"),
-             person("Luise", "Kuehn", role = c("aut","cre"), email = "treebalanceindices@gmail.com"),
-	     person("Kristina", "Wicke", role = "aut"))
-Author: Mareike Fischer [aut],
-  Lina Herbst [aut],
-  Sophie Kersting [aut],
-  Luise Kuehn [aut, cre],
-  Kristina Wicke [aut]
-Maintainer: Luise Kuehn <treebalanceindices@gmail.com>
+    reader to E. Paradis (2012)
+    <https://emmanuelparadis.github.io/misc/FormatTreeR_24Oct2012.pdf>.
+Authors@R: c(
+    person("Mareike", "Fischer", role = "aut", comment = c(ORCID = "0000-0002-9429-0859")),
+    person("Lina", "Herbst", role = "aut", comment = c(ORCID = "0000-0001-9169-0948")),
+    person("Sophie", "Kersting", role = c("aut", "cre"), email = "treebalanceindices@gmail.com",
+           comment = c(ORCID = "0000-0002-1038-9246")),
+    person("Luise", "Kuehn", role = "aut", comment = c(ORCID = "0000-0002-0158-8286")),
+    person("Kristina", "Wicke", role = "aut", comment = c(ORCID = "0000-0002-4275-5546")))
 Depends: R (>= 3.5.0)
 Imports: ape, memoise, gmp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-12-14 08:29:24 UTC; kuehnl
+Config/roxygen2/version: 8.1.0
+Packaged: 2026-09-29 14:57:37 UTC; AGFischer
+Author: Mareike Fischer [aut] (ORCID: <https://orcid.org/0000-0002-9429-0859>),
+  Lina Herbst [aut] (ORCID: <https://orcid.org/0000-0001-9169-0948>),
+  Sophie Kersting [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-1038-9246>),
+  Luise Kuehn [aut] (ORCID: <https://orcid.org/0000-0002-0158-8286>),
+  Kristina Wicke [aut] (ORCID: <https://orcid.org/0000-0002-4275-5546>)
+Maintainer: Sophie Kersting <treebalanceindices@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-12-14 10:00:03 UTC
+Date/Publication: 2026-10-01 19:00:02 UTC

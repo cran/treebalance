@@ -21,9 +21,7 @@ common ancestor of the two leaves \eqn{i} and \eqn{j} and \eqn{V_{in}(T)\setminu
 denotes the set of all inner vertices exept the root and \eqn{n_u} denotes the
 number of descendant leaves of \eqn{u}. The second formula is useful for efficient
 computation of \eqn{TCI(T)}. The total cophenetic index is an imbalance index.\cr\cr
-For \eqn{n=1} the function returns \eqn{TCI(T)=0}. \cr\cr
-For details on the total cophenetic index, see 
-also Chapter 8 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_8).
+For \eqn{n=1} the function returns \eqn{TCI(T)=0}.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -35,7 +33,7 @@ totCophI(tree)
 
 }
 \references{
-A. Mir, F. Rossello, and L. Rotger. A new balance index for phylogenetic trees. Mathematical Bio-sciences, 241(1):125-136, 2013. doi: 10.1016/j.mbs.2012.10.005.
+A. Mir, F. Rosselló, and L. Rotger. A new balance index for phylogenetic trees. Mathematical Bio-sciences, 241(1):125-136, 2013. doi: 10.1016/j.mbs.2012.10.005.
 }
 \author{
 Sophie Kersting

@@ -8,7 +8,7 @@
 #' \eqn{CP(T)=1} if \eqn{T} consists of only one vertex and otherwise
 #' \eqn{CP(T)=\frac{1}{2}\cdot CP(T_1)\cdot(CP(T_1)-1)+CP(T_2)+1}{CP(T)=1/2*CP(T1)(CP(T1)-1)+CP(T2)+1} with
 #' \eqn{CP(T_1) \geq CP(T_2)}{CP(T1)>=CP(T2)} being the
-#' ranks of the two pending subtrees rooted at the children of the root of \eqn{T}.
+#' ranks of the two pending subtrees rooted at the children of \eqn{T}.
 #' The rank \eqn{CP(T)} of \eqn{T} corresponds to its position in the
 #' lexicographically sorted list of (\eqn{i,j}): (1),(1,1),(2,1),(2,2),(3,1),... \cr\cr
 #' \code{colPlaLab_inv()}:
@@ -20,11 +20,14 @@
 #' until there are no more vertices to split. \cr
 #' For \eqn{CP=1} the function returns the smallest possible tree in the
 #' phylo format: the tree consisting of a single edge.\cr\cr
-#' Note that problems can arise for extremely high input values (>10e+18). \cr\cr
-#' For details on the Colijn-Plazzotta rank, see 
-#' also Chapter 21 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_21).
+#' Note that the ranks grow very quickly with the number of leaves. Thus, the tree is
+#' computed with exact integer arithmetic (package \eqn{gmp}); ranks larger than
+#' \eqn{2^{53}}{2^53} cannot be represented exactly as double and have to be given as
+#' \code{bigz} or as character.
 #'
-#' @param rank An integer denoting the Colijn-Plazzotta rank of the sought tree.
+#' @param rank An integer denoting the Colijn-Plazzotta rank of the sought tree. It can be
+#' given as \code{bigz} (package \code{gmp}), as character or as double (the latter only up to
+#' \eqn{2^{53}}{2^53}).
 #'
 #' @return \code{colPlaLab_inv} returns the unique rooted binary tree for the given rank.
 #'
@@ -35,8 +38,9 @@
 #'
 #' @examples
 #' colPlaLab_inv(22)
+#' colPlaLab_inv("5695183504492614029263280")
 #'
-#' @export
+#'@export
 colPlaLab_inv <- function(rank){
   if(rank == 1) { # phylo format has no tree with a single node (only single edge)
     return(ape::read.tree(text="();"))

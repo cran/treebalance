@@ -4,16 +4,19 @@
 \alias{furnasI}
 \title{Calculation of the Furnas rank for rooted binary trees}
 \usage{
-furnasI(tree)
+furnasI(tree, type = "bigz")
 }
 \arguments{
 \item{tree}{A rooted binary tree in phylo format.}
+
+\item{type}{A character string specifying whether the rank is returned exactly as
+big integer ("bigz", default, package \code{gmp}) or as "double" (only for \eqn{n\leq 48}{n<=48}).}
 }
 \value{
 \code{furnasI} returns the unique Furnas rank of the given tree, i.e.
 the rank of the tree among all rooted binary trees with \eqn{n} leaves in the
 left-light rooted ordering. Since the values can get quite large, the function
-returns them in \eqn{big.z} format (package \eqn{gmp}).
+returns them by default in \eqn{big.z} format (package \eqn{gmp}).
 }
 \description{
 This function calculates the Furnas rank \eqn{F(T)} for a given rooted
@@ -25,14 +28,15 @@ of random, binary unordered trees" by G.W. Furnas (1984) or "Tree balance
 indices: a comprehensive survey" by Fischer et al. (2023). The Furnas rank
 is a balance index.\cr\cr
 The concept of assigning each rooted binary tree a unique tuple \eqn{(rank, n)}
-allows to store many trees with minimal storage use. \cr\cr
-For details on the Furnas rank, see 
-also Chapter 22 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_22).
+allows to store many trees with minimal storage use.\cr\cr
+The Furnas rank can be computed for trees with at most 2545 leaves. With
+\code{type="double"} the function stops for \eqn{n\geq 49}{n>=49}, since the ranks can
+then no longer be represented exactly as double.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
 furnasI(tree)
-
+furnasI(tree, type="double")
 }
 \references{
 G. W. Furnas. The generation of random, binary unordered trees. Journal of Classification, 1984. doi: 10.1007/bf01890123. URL https://doi.org/10.1007/bf01890123.

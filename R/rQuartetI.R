@@ -32,9 +32,7 @@
 #' The rooted quartet index \eqn{rQI(T)} of the tree \eqn{T} is then defined as
 #' the sum of the rQI-values of its rooted quartets:
 #' \deqn{rQI(T)=\sum_{Q\in P_4} rQI(T(Q))}{rQI(T)=\sum rQI(T(Q)) over Q in P_4}
-#' The rooted quartet index is a balance index. \cr\cr
-#' For details on the rooted quartet index, see 
-#' also Chapter 20 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_20).
+#' The rooted quartet index is a balance index.
 #'
 #' @param tree A rooted tree in phylo format.
 #' @param shapeVal A vector of length 5 containing the shape values \eqn{q_0,...,q_4}.
@@ -44,7 +42,7 @@
 #'
 #' @author Sophie Kersting
 #'
-#' @references T. M. Coronado, A. Mir, F. Rossello, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
+#' @references T. M. Coronado, A. Mir, F. Rosselló, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -54,15 +52,16 @@
 rQuartetI <- function(tree, shapeVal=c(0,1,2,3,4)){
   #Check for errors in input
   if (!inherits(tree, "phylo")) stop("The input tree must be in phylo-format.")
+  if (length(shapeVal) != 5) stop("The vector shapeVal must have exactly 5 entries.")
 
   n <- length(tree$tip.label)
   if(n<4) return(0)
 
   q0 <- shapeVal[1]
-  q1 <- shapeVal[2]
-  q2 <- shapeVal[3]
-  q3 <- shapeVal[4]
-  q4 <- shapeVal[5]
+  q1 <- shapeVal[2]-q0 # q0 is added for all quartets at the end
+  q2 <- shapeVal[3]-q0
+  q3 <- shapeVal[4]-q0
+  q4 <- shapeVal[5]-q0
 
   Descs <- getDescMatrix(tree)
   depthResults <- getNodesOfDepth(mat=Descs, root=n+1, n=n)
@@ -97,5 +96,5 @@ rQuartetI <- function(tree, shapeVal=c(0,1,2,3,4)){
     }
   }
 
-  return(rQI_v[n+1])
+  return(rQI_v[n+1] + q0*choose(n,4))
 }

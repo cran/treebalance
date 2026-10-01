@@ -1,16 +1,21 @@
 citHeader("To cite treebalance in publications use:")
 
 bibentry(
-  bibtype  = "Unpublished",
-  title    = "Tree balance indices: a comprehensive survey",
+  bibtype  = "Book",
+  title    = "Tree Balance Indices -- A Comprehensive Survey",
   author   = c(person("Mareike","Fischer"),
                person("Lina","Herbst"),
                person("Sophie","Kersting"),
                person("Luise","Kühn"),
                person("Kristina","Wicke")),
-  note     = "will be submitted shortly",
-  url      = "https://treebalance.wordpress.com",
-  year     = "2021"
+  publisher = "Springer Nature Switzerland AG",
+  year     = "2023",
+  isbn     = "978-3-031-39799-8",
+  doi      = "10.1007/978-3-031-39800-1",
+  url      = "https://link.springer.com/book/10.1007/978-3-031-39800-1",
+  textVersion = paste("M. Fischer, L. Herbst, S. Kersting, L. Kühn & K. Wicke (2023).",
+                      "Tree Balance Indices - A Comprehensive Survey.",
+                      "Springer Nature Switzerland AG. ISBN: 978-3-031-39799-8.")
 )
 
 bibentry(
@@ -21,7 +26,8 @@ bibentry(
                person("Sophie","Kersting"),
                person("Luise","Kühn"),
                person("Kristina","Wicke")),
-  year     = "2021"
+  note     = "R package version 1.2.2",
+  year     = "2026"
 )
 
 

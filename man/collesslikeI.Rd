@@ -10,10 +10,12 @@ collesslikeI(tree, f.size, dissim)
 \item{tree}{A rooted binary tree in phylo format.}
 
 \item{f.size}{A character string specifying the function \eqn{f} that shall be used to compute the f.size.
-It can be one of the following: "exp", "ln" or the name of a function as a string.}
+It can be one of the following: "exp", "ln" or the name of a function as a string. Alternatively,
+a function can be passed directly (e.g. if it is defined within another function or package).}
 
 \item{dissim}{A character string specifying the dissimilarity that shall be
-used. It can be one of the following: "mdm", "var", "sd" or the name of a function as a string.}
+used. It can be one of the following: "mdm", "var", "sd" or the name of a function as a string.
+Alternatively, a function can be passed directly.}
 }
 \value{
 \code{collesslikeI} returns the Colless-like index of the given tree according to the chosen
@@ -47,9 +49,7 @@ mean deviation from the median (\eqn{mdm}),
 the sample variance (\eqn{var}) and the sample standard deviation (\eqn{sd}).\cr
 \code{collesslikeI} also allows the use of other functions for the weight function \eqn{f}
 and the dissimilarity \eqn{D}.\cr\cr
-Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning. \cr\cr
-For details on the family of Colless-like indices, see 
-also Chapter 16 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_16).
+Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -59,10 +59,11 @@ collesslikeI(tree, f.size="ln", dissim="sd")
 myfsize <- function(x) return(x+1)
 mydissim <- function(x) return (var(x))
 collesslikeI(tree, f.size="myfsize",dissim = "mydissim")
+collesslikeI(tree, f.size=function(x) x+1, dissim=stats::var)
 
 }
 \references{
-A. Mir, L. Rotger, and F. Rossello. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
+A. Mir, L. Rotger, and F. Rosselló. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
 }
 \author{
 Luise Kuehn, Sophie Kersting

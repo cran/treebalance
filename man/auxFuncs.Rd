@@ -40,7 +40,7 @@ get.subtreesize(tree)
 
 getlca(tree, v, w)
 
-we_eth(n)
+we_eth(n, type = "bigz")
 
 getfurranks(tree)
 
@@ -54,7 +54,7 @@ tree_decomposition(tree)
 
 tree_merge(tree1, tree2)
 
-treenumber(tree)
+treenumber(tree, type = "bigz")
 
 treenumber_inv(treenum)
 
@@ -73,9 +73,15 @@ auxE_l_X(subX, Xset)
 
 \item{v}{A vertex of the tree.}
 
-\item{label}{A Colijn-Plazotta label of desired tree, a positive integer.}
+\item{label}{A Colijn-Plazzotta label of desired tree, a positive integer. It can be given
+as \code{bigz} (package \code{gmp}), as character or as double; the latter only up to
+\eqn{2^{53}}{2^53}, since larger integers cannot be represented exactly as double.}
 
 \item{w}{A vertex of the tree.}
+
+\item{type}{A character string specifying whether the result is returned exactly as
+big integer ("bigz", default, package \code{gmp}) or as "double". The double variant
+is only available as long as the result can be represented exactly.}
 
 \item{subroot}{A vertex of the tree. It is not recommended to use
 leaves as subroots.}
@@ -84,7 +90,9 @@ leaves as subroots.}
 
 \item{tree2}{A rooted tree in phylo format.}
 
-\item{treenum}{An integer denoting the tree number of the sought tree.}
+\item{treenum}{An integer denoting the tree number of the sought tree. It can be given
+as \code{bigz} (package \code{gmp}), as character or as double; the latter only up to
+\eqn{2^{53}}{2^53}, since larger integers cannot be represented exactly as double.}
 
 \item{subX}{integer >=1, size of the subsets of X.}
 
@@ -119,7 +127,7 @@ returns ranking. Uses bucket sort.
 \code{cPL_inv} - Returns the binary tree that belongs to the input label in an incomplete
 Newick format.
 
-\code{maxDepthLeaf} - Returns the maximumy< depth of a leaf in the subtree that
+\code{maxDepthLeaf} - Returns the maximum depth of a leaf in the subtree that
 is rooted at \eqn{v}.
 
 \code{get.subtreesize} - Creates a vector that contains at the \eqn{i}-th position
@@ -129,10 +137,13 @@ the number of leaves in the pending subtree rooted at \eqn{i}.
 input vertices \eqn{v} and \eqn{w}.
 
 \code{we_eth} - Returns the Wedderburn-Etherington number \eqn{we(n)}
-for a given non-negative integer \eqn{n}.
+for a given non-negative integer \eqn{n\leq 2545}{n<=2545}. With \code{type="double"}
+the function stops for \eqn{n\geq 49}{n>=49}, since \eqn{we(n)} can then no longer be
+represented exactly as double.
 
 \code{getfurranks} - Returns for each vertex \eqn{i} the Furnas rank of the
-subtree rooted at \eqn{i}.
+subtree rooted at \eqn{i} (in \code{bigz} format, package \code{gmp}). The tree must
+have at most 2545 leaves.
 
 \code{getsubtree} - Returns the pending subtree (in phylo format) that is
 rooted at the input vertex. If the input vertex is a leaf, the function returns
@@ -165,6 +176,8 @@ Wedderburn-Etherington number of \eqn{i}.
 The concept of assigning each rooted binary tree a unique tree number allows
 to store many trees with minimal storage use.
 For \eqn{n=1} the function returns \eqn{tn(T)=1} and a warning.
+With \code{type="double"} the function stops for \eqn{n\geq 48}{n>=48}, since the tree
+numbers can then no longer be represented exactly as double.
 
 \code{treenumber_inv} - Returns the unique tree (in phylo format) for
 the given tree number.
@@ -189,6 +202,8 @@ maxDepthLeaf(tree,v=6)
 get.subtreesize(tree)
 getlca(tree,1,2)
 we_eth(5)
+we_eth(60)
+we_eth(5, type="double")
 getfurranks(tree)
 getsubtree(tree,4)
 is_binary(ape::read.tree(text="((((,),),(,)),(((,),),(,)));"))
@@ -199,6 +214,7 @@ treeB <- ape::read.tree(text="((,),);")
 tree_merge(treeA, treeB)
 treenumber(ape::read.tree(text="((((,),),(,)),(((,),),(,)));"))
 treenumber_inv(192)
+treenumber_inv("5000000000000000000")
 auxE_l_X(subX=3,Xset=c(1,1,2,2))
 }
 \author{

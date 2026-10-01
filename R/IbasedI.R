@@ -27,7 +27,7 @@
 #' if \eqn{k_v} is even and \eqn{I_v=0}. \cr\cr
 #' The \eqn{I}-based index of \eqn{T} can now be calculated using different methods.
 #' Here, we only state the version for the \eqn{I'} correction method, but the non-corrected
-#' version or the \eqn{I_v^w} corrected version works analoguously.
+#' version or the \eqn{I_v^w} corrected version works analogously.
 #' 1) root: The \eqn{I'} index of \eqn{T} equals the \eqn{I'_v} value of the root of
 #' \eqn{T}, i.e. \eqn{I'(T)=I'_{\rho}}{I'(T)=I'_\rho}, provided that the root fulfills the two
 #' criteria. Note that this method does not fulfil the definition of an (im)balance index.
@@ -39,9 +39,7 @@
 #' vertices \eqn{v} that fulfill the two criteria.
 #' 5) quartile deviation: The \eqn{I'} index of \eqn{T} equals the quartile
 #' deviation (half the difference between third and first quartile) of the \eqn{I'_v} values of all
-#' vertices \eqn{v} that fulfill the two criteria. \cr\cr
-#' For details on the family of I-based indices, see 
-#' also Chapter 17 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_17).
+#' vertices \eqn{v} that fulfill the two criteria.
 #'
 #' @param tree A rooted tree in phylo format (with possibly few polytomies).
 #' @param specnum A vector whose \eqn{i}-th entry is the number of species that

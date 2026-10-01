@@ -163,7 +163,9 @@ getAllAncestors <- function(tree,v){
 #' \code{cPL_inv} - Returns the binary tree that belongs to the input label in an incomplete
 #' Newick format.
 #'
-#' @param label A Colijn-Plazotta label of desired tree, a positive integer.
+#' @param label A Colijn-Plazzotta label of desired tree, a positive integer. It can be given
+#' as \code{bigz} (package \code{gmp}), as character or as double; the latter only up to
+#' \eqn{2^{53}}{2^53}, since larger integers cannot be represented exactly as double.
 #'
 #' @rdname auxFuncs
 #' @export
@@ -171,19 +173,38 @@ getAllAncestors <- function(tree,v){
 #' cPL_inv(label=6)
 cPL_inv <- function(label)
 {
-  if(label%%1!=0 || label<1) stop("Invalid Colijn Plazzotta label (must be integer > 0).")
+  if(!gmp::is.bigz(label) && !is.character(label)) {
+    if(!is.finite(label) || label<1 || (label<=2^53 && label%%1!=0)) stop("Invalid Colijn Plazzotta label (must be integer > 0).")
+    if(label > 2^53)
+      stop(paste("Labels larger than 2^53 cannot be represented exactly as double.",
+                 "Please enter the label as bigz (package gmp) or as character."))
+  }
+  label <- gmp::as.bigz(label)
+  if(is.na(label) || label<1) stop("Invalid Colijn Plazzotta label (must be integer > 0).")
 
   if(label == 1) { # phylo format has no tree with a single node (only single edge)
     return(" ")
   } else { # the vertex has two direct descendants
-    i <- ceiling((1+sqrt(8*label-7))/2)-1
-    j <- label-1-i*(i-1)/2
+    # i is the largest integer with i*(i-1)/2 < label-1, i.e. i=ceiling((1+sqrt(8*label-7))/2)-1,
+    # found by binary search (sqrt is not available for bigz)
+    lower <- gmp::as.bigz(1)
+    upper <- label
+    while(lower < upper) {
+      mid <- gmp::divq.bigz(lower+upper+1, 2)
+      if(gmp::divq.bigz(mid*(mid-1), 2) < label-1) {
+        lower <- mid
+      } else {
+        upper <- mid-1
+      }
+    }
+    i <- lower
+    j <- label-1-gmp::divq.bigz(i*(i-1), 2)
   }
   return(paste0("(",cPL_inv(i),",",cPL_inv(j),")"))
 }
 #' Auxiliary functions
 #'
-#' \code{maxDepthLeaf} - Returns the maximumy< depth of a leaf in the subtree that
+#' \code{maxDepthLeaf} - Returns the maximum depth of a leaf in the subtree that
 #' is rooted at \eqn{v}.
 #'
 #' @rdname auxFuncs
@@ -260,22 +281,46 @@ getlca <- function(tree,v,w)
 #' Auxiliary functions
 #'
 #' \code{we_eth} - Returns the Wedderburn-Etherington number \eqn{we(n)}
-#' for a given non-negative integer \eqn{n}.
+#' for a given non-negative integer \eqn{n\leq 2545}{n<=2545}. With \code{type="double"}
+#' the function stops for \eqn{n\geq 49}{n>=49}, since \eqn{we(n)} can then no longer be
+#' represented exactly as double.
+#'
+#' @param type A character string specifying whether the result is returned exactly as
+#' big integer ("bigz", default, package \code{gmp}) or as "double". The double variant
+#' is only available as long as the result can be represented exactly.
 #'
 #' @rdname auxFuncs
 #' @export
 #' @examples
 #' we_eth(5)
-we_eth <- function(n){
+#' we_eth(60)
+#' we_eth(5, type="double")
+we_eth <- function(n, type="bigz"){
+  if(!(type %in% c("bigz", "double"))) stop("The type must be either 'bigz' or 'double'.")
   if(n < 0 || n%%1 != 0)     stop("Input must be non-negative integer.")
-  if(n == 0)                 return(0)
-  return(treebalance::wedEth[n])
+  if(n > length(wedEth_chr()))
+    stop("Wedderburn-Etherington numbers are only available for n <= 2545.")
+  if(type == "double" && n >= 49)
+    stop(paste("For n >= 49 the Wedderburn-Etherington number cannot be represented",
+               "exactly as double. Please use type=\"bigz\"."))
+  if(n == 0) {
+    we <- gmp::as.bigz(0)
+  } else {
+    we <- gmp::as.bigz(wedEth_chr()[n])
+  }
+  if(type == "double") return(as.numeric(we))
+  return(we)
 }
+# Internal: the Wedderburn-Etherington numbers of wedEth as character vector. Indexing
+# the bigz vector wedEth processes the whole vector each time (ca. 2ms), whereas
+# indexing this vector and converting the result with gmp::as.bigz is very fast.
+wedEth_chr <- memoise::memoise(function() as.character(treebalance::wedEth))
 
 #' Auxiliary functions
 #'
 #' \code{getfurranks} - Returns for each vertex \eqn{i} the Furnas rank of the
-#' subtree rooted at \eqn{i}.
+#' subtree rooted at \eqn{i} (in \code{bigz} format, package \code{gmp}). The tree must
+#' have at most 2545 leaves.
 #'
 #' @rdname auxFuncs
 #' @export
@@ -298,7 +343,9 @@ getfurranks <- function(tree){
     }
   }
   # get Wedderburn-Etherington numbers for 1:n
-  we <- gmp::as.bigz(treebalance::wedEth[1:n])
+  if(n > length(wedEth_chr()))
+    stop("The Furnas rank can only be computed for trees with at most 2545 leaves.")
+  we <- gmp::as.bigz(wedEth_chr()[1:n])
   
   # get for each vertex i the rank of the subtree rooted at i
   subranks <- c(rep(gmp::as.bigz(1),n), rep(NA,tree$Nnode))
@@ -333,7 +380,7 @@ getfurranks <- function(tree){
     }
     # if left ('light') and right ('heavy') subtree have the same number of leaves
     if(nL == nR) {
-      subranks[i] <- gmp::sub.bigz(gmp::add.bigz(h, gmp::as.bigz(we[nL]*(we[nL]+1)/2)), (we[nL]-rL+1)*(we[nL]-rL+2)/2) + rR - rL + 1
+      subranks[i] <- gmp::sub.bigz(gmp::add.bigz(h, gmp::divq.bigz(we[nL]*(we[nL]+1), 2)), gmp::divq.bigz((we[nL]-rL+1)*(we[nL]-rL+2), 2)) + rR - rL + 1
     }
   }
   
@@ -433,6 +480,7 @@ is_binary <- function(tree)
   if(n==1 && tree$edge[,1]==2) return(TRUE)
   # else: check if each node has exactly 0 or 2 direct descendants
   if(sum(table(tree$edge[,1])!=2)==0) return(TRUE)
+  return(FALSE)
 }
 #' Auxiliary functions
 #'
@@ -642,7 +690,12 @@ tree_merge <- function(tree1, tree2)
   # tree with 1+1=2 leaves
   if(length(tree1$tip.label)==1 & length(tree2$tip.label)==1)
   {
-    tree <- ape::read.tree(text="(,);")
+    tree1$root.edge <- 1
+    tree2$root.edge <- 0 # the leaf keeps its own edge length
+    # tree1 and tree2 are bound together
+    tree <- ape::bind.tree(tree1, tree2)
+    tree <- ape::collapse.singles(tree) # the roots of tree1 and tree2 have out-degree 1
+    tree$root.edge <- NULL
     return(tree)
   }
   # tree with 1+x leaves
@@ -662,8 +715,11 @@ tree_merge <- function(tree1, tree2)
   {
     r1 <- length(tree1$tip.label) + 1
     r2 <- length(tree2$tip.label) + 1
+    tree1$root.edge <- 1
+    tree2$root.edge <- 0 # the leaf keeps its own edge length
     #tree1 and tree2 are bound together
-    tree <- ape::bind.tree(tree1, tree2, where=r1, position=r2)
+    tree <- ape::bind.tree(tree1, tree2, where=r1, position=1)
+    tree <- ape::collapse.singles(tree) # the root of tree2 has out-degree 1
     tree$root.edge <- NULL
     return(tree)
   }
@@ -672,9 +728,10 @@ tree_merge <- function(tree1, tree2)
   {
     r1 <- length(tree1$tip.label) + 1
     r2 <- length(tree2$tip.label) + 1
+    tree1$root.edge <- 1
     tree2$root.edge <- 1
     # tree1 and tree2 are bound together
-    tree <- ape::bind.tree(tree1, tree2, where=r1, position=r2)
+    tree <- ape::bind.tree(tree1, tree2, where=r1, position=1)
     tree$root.edge <- NULL
     return(tree)
   }
@@ -694,27 +751,34 @@ tree_merge <- function(tree1, tree2)
 #' The concept of assigning each rooted binary tree a unique tree number allows
 #' to store many trees with minimal storage use.
 #' For \eqn{n=1} the function returns \eqn{tn(T)=1} and a warning.
+#' With \code{type="double"} the function stops for \eqn{n\geq 48}{n>=48}, since the tree
+#' numbers can then no longer be represented exactly as double.
 #'
 #' @rdname auxFuncs
 #' @export
 #' @examples
 #' treenumber(ape::read.tree(text="((((,),),(,)),(((,),),(,)));"))
-treenumber <- function(tree)
+treenumber <- function(tree, type="bigz")
 {
+  if(!(type %in% c("bigz", "double"))) stop("The type must be either 'bigz' or 'double'.")
   # number of leaves
   num.leaves <- length(tree$tip.label)
+  if(type == "double" && num.leaves >= 48)
+    stop(paste("For n >= 48 the tree number cannot be represented exactly as double.",
+               "Please use type=\"bigz\"."))
 
   if(num.leaves == 1)
   {
     warning("The function might not deliver accurate results for n=1.")
-    return(1)
+    treenum <- gmp::as.bigz(1)
+  } else {
+    # calculate the tree number of the given tree by adding the Furnas rank to
+    # the sum of Wedderburn-Etherington numbers from 1 to num.leaves-1
+    treenum <- furnasI(tree) + sum(gmp::as.bigz(wedEth_chr()[seq(1,num.leaves-1)]))
   }
 
-  # calculate the tree number of the given tree by adding the Furnas rank to
-  # the sum of Wedderburn-Etherington numbers from 1 to num.leaves-1
-  treenum <- sum(sapply(seq(1,num.leaves-1),we_eth)) + furnasI(tree)
-
   # return the tree number
+  if(type == "double") return(as.numeric(treenum))
   return(treenum)
 }
 
@@ -723,23 +787,33 @@ treenumber <- function(tree)
 #' \code{treenumber_inv} - Returns the unique tree (in phylo format) for
 #' the given tree number.
 #'
-#' @param treenum An integer denoting the tree number of the sought tree.
+#' @param treenum An integer denoting the tree number of the sought tree. It can be given
+#' as \code{bigz} (package \code{gmp}), as character or as double; the latter only up to
+#' \eqn{2^{53}}{2^53}, since larger integers cannot be represented exactly as double.
 #'
 #' @rdname auxFuncs
 #' @export
 #' @examples
 #' treenumber_inv(192)
+#' treenumber_inv("5000000000000000000")
 treenumber_inv <- function(treenum)
 {
   # check for errors in input
-  if(treenum%%1!=0 | treenum<1) stop("Tree cannot be calculated, because tree number is not valid.")
+  if(!gmp::is.bigz(treenum) && !is.character(treenum)) {
+    if(!is.finite(treenum) || treenum<1 || (treenum<=2^53 && treenum%%1!=0)) stop("Tree cannot be calculated, because tree number is not valid.")
+    if(treenum > 2^53)
+      stop(paste("Tree numbers larger than 2^53 cannot be represented exactly as double.",
+                 "Please enter the tree number as bigz (package gmp) or as character."))
+  }
+  treenum <- gmp::as.bigz(treenum)
+  if(is.na(treenum) || treenum<1) stop("Tree cannot be calculated, because tree number is not valid.")
 
   # initial conditions
   if(treenum == 1) {return(ape::read.tree(text="();"))}
   if(treenum == 2) {return(ape::read.tree(text="(,);"))}
 
   # calculate the number of leaves n of the tree
-  we_sum <- 0
+  we_sum <- gmp::as.bigz(0)
   nT <- 1
   while(we_sum < treenum)
   {

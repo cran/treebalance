@@ -8,9 +8,7 @@
 #' and \eqn{n_u} denotes the number of leaves
 #' in the pending subtree that is rooted at \eqn{u}. An arbitrary logarithm base can be used
 #' (for binary trees it is common to use base 2).\cr\cr
-#' For \eqn{n=1} the function returns \eqn{sShape(T)=0} and a warning. \cr\cr
-#' For details on the s-shape statistic, see 
-#' also Chapter 9 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_9).
+#' For \eqn{n=1} the function returns \eqn{sShape(T)=0} and a warning.
 #'
 #' @param tree A rooted tree in phylo format.
 #' @param logbase The logarithm base that shall be used.
@@ -29,6 +27,7 @@
 sShapeI <- function(tree, logbase=2){
   #check for errors in input
   if (!inherits(tree, "phylo")) stop("The input tree must be in phylo-format.")
+  if (logbase <= 0 || logbase == 1) stop("The logarithm base must be a positive number other than 1.")
   n <- length(tree$tip.label)
   if(n == 1){
     warning("The function might not deliver accurate results for n=1.")

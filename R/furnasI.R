@@ -9,16 +9,19 @@
 #' indices: a comprehensive survey" by Fischer et al. (2023). The Furnas rank
 #' is a balance index.\cr\cr
 #' The concept of assigning each rooted binary tree a unique tuple \eqn{(rank, n)}
-#' allows to store many trees with minimal storage use. \cr\cr
-#' For details on the Furnas rank, see 
-#' also Chapter 22 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_22).
+#' allows to store many trees with minimal storage use.\cr\cr
+#' The Furnas rank can be computed for trees with at most 2545 leaves. With
+#' \code{type="double"} the function stops for \eqn{n\geq 49}{n>=49}, since the ranks can
+#' then no longer be represented exactly as double.
 #'
 #' @param tree A rooted binary tree in phylo format.
+#' @param type A character string specifying whether the rank is returned exactly as
+#' big integer ("bigz", default, package \code{gmp}) or as "double" (only for \eqn{n\leq 48}{n<=48}).
 #'
 #' @return \code{furnasI} returns the unique Furnas rank of the given tree, i.e.
 #' the rank of the tree among all rooted binary trees with \eqn{n} leaves in the
 #' left-light rooted ordering. Since the values can get quite large, the function
-#' returns them in \eqn{big.z} format (package \eqn{gmp}).
+#' returns them by default in \eqn{big.z} format (package \eqn{gmp}).
 #'
 #' @author Luise Kuehn, Lina Herbst
 #'
@@ -28,18 +31,24 @@
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
 #' furnasI(tree)
-#' 
+#' furnasI(tree, type="double")
 #' @export
-furnasI <- function(tree){
+furnasI <- function(tree, type="bigz"){
   if (!inherits(tree,"phylo")) stop("The input tree must be in phylo-format.")
+  if (!(type %in% c("bigz", "double"))) stop("The type must be either 'bigz' or 'double'.")
   if (!is_binary(tree))        stop("The input tree is not binary.")
   n <- length(tree$tip.label)
+  if (type == "double" && n >= 49)
+    stop(paste("For n >= 49 the Furnas rank cannot be represented exactly as double.",
+               "Please use type=\"bigz\"."))
   
   # initial conditions
-  if(n == 1) return(gmp::as.bigz(1))
-  if(n == 2) return(gmp::as.bigz(1))
-  
-  # return the Furnas rank for the input tree
-  allranks <- getfurranks(tree)
-  return(allranks[n+1])
+  if(n == 1 || n == 2) {
+    furrank <- gmp::as.bigz(1)
+  } else {
+    # get the Furnas rank for the input tree
+    furrank <- getfurranks(tree)[n+1]
+  }
+  if(type == "double") return(as.numeric(furrank))
+  return(furrank)
 }

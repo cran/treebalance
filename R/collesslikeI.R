@@ -27,22 +27,22 @@
 #' the sample variance (\eqn{var}) and the sample standard deviation (\eqn{sd}).\cr
 #' \code{collesslikeI} also allows the use of other functions for the weight function \eqn{f}
 #' and the dissimilarity \eqn{D}.\cr\cr
-#' Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning. \cr\cr
-#' For details on the family of Colless-like indices, see 
-#' also Chapter 16 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_16).
+#' Special cases: For \eqn{n=1} the function returns \eqn{CL(T)=0} and a warning.
 #'
 #' @param tree A rooted binary tree in phylo format.
 #' @param f.size A character string specifying the function \eqn{f} that shall be used to compute the f.size.
-#' It can be one of the following: "exp", "ln" or the name of a function as a string.
+#' It can be one of the following: "exp", "ln" or the name of a function as a string. Alternatively,
+#' a function can be passed directly (e.g. if it is defined within another function or package).
 #' @param dissim A character string specifying the dissimilarity that shall be
 #' used. It can be one of the following: "mdm", "var", "sd" or the name of a function as a string.
+#' Alternatively, a function can be passed directly.
 #'
 #' @return \code{collesslikeI} returns the Colless-like index of the given tree according to the chosen
 #' function and dissimilarity.
 #'
 #' @author Luise Kuehn, Sophie Kersting
 #'
-#' @references A. Mir, L. Rotger, and F. Rossello. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
+#' @references A. Mir, L. Rotger, and F. Rosselló. Sound Colless-like balance indices for multifurcating trees. PLOSONE, 13(9):e0203401, 2018. doi: 10.1371/journal.pone.0203401
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -52,34 +52,39 @@
 #' myfsize <- function(x) return(x+1)
 #' mydissim <- function(x) return (var(x))
 #' collesslikeI(tree, f.size="myfsize",dissim = "mydissim")
+#' collesslikeI(tree, f.size=function(x) x+1, dissim=stats::var)
 #'
 #' @export
 collesslikeI <- function(tree, f.size, dissim) {
   #Check for errors in input
   if(!inherits(tree, "phylo")) stop("The input tree must be in phylo-format.")
-  if(!(f.size %in% c("exp", "ln")) && !exists(f.size, mode = "function")){
-    stop("The f.size must be one of the strings 'exp' or 'ln' or the name of an existing function as a string.")}
-  if(!(dissim %in% c("mdm", "var", "sd")) && !exists(dissim, mode = "function")){
-    stop("The dissimilarity must be one of 'mdm', 'var' or 'sd' or the name of an existing function as a string.")}
+  if(!is.function(f.size) && !(f.size %in% c("exp", "ln")) && !exists(f.size, mode = "function")){
+    stop("The f.size must be one of the strings 'exp' or 'ln' or the name of an existing function as a string or a function.")}
+  if(!is.function(dissim) && !(dissim %in% c("mdm", "var", "sd")) && !exists(dissim, mode = "function")){
+    stop("The dissimilarity must be one of 'mdm', 'var' or 'sd' or the name of an existing function as a string or a function.")}
 
   #possible functions for computation of f.size are f(x)=e^x and f(x)=ln(x+e)
-  if(f.size=="exp") {
-    f.size <- function(x) return(exp(x))
-  }else if(f.size=="ln") {
-    f.size <- function(x) return(log(x+exp(1)))
-  }else {
-    f.size <- get(f.size)
+  if(!is.function(f.size)) {
+    if(f.size=="exp") {
+      f.size <- function(x) return(exp(x))
+    }else if(f.size=="ln") {
+      f.size <- function(x) return(log(x+exp(1)))
+    }else {
+      f.size <- get(f.size)
+    }
   }
 
   #possible dissimilarities are mean deviation from median, sample variance and sample standard deviation
-  if(dissim=="mdm") {
-    dissim <- function(x) return(sum(abs(x-stats::median(x))))/length(x)
-  } else if(dissim=="var") {
-    dissim <- function(x) return(sum((x-mean(x))^2)/(length(x)-1))
-  } else if(dissim=="sd") {
-    dissim <- function(x) return(sqrt(sum((x-mean(x))^2)/(length(x)-1)))
-  } else {
-    dissim <- get(dissim)
+  if(!is.function(dissim)) {
+    if(dissim=="mdm") {
+      dissim <- function(x) return(sum(abs(x-stats::median(x)))/length(x))
+    } else if(dissim=="var") {
+      dissim <- function(x) return(sum((x-mean(x))^2)/(length(x)-1))
+    } else if(dissim=="sd") {
+      dissim <- function(x) return(sqrt(sum((x-mean(x))^2)/(length(x)-1)))
+    } else {
+      dissim <- get(dissim)
+    }
   }
 
   n <- length(tree$tip.label)

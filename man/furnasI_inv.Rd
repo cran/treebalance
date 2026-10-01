@@ -8,9 +8,11 @@ furnasI_inv(rank, n)
 }
 \arguments{
 \item{rank}{An integer denoting the rank of the sought tree among all rooted
-binary trees with \eqn{n} leaves.}
+binary trees with \eqn{n} leaves. It can be given as \code{bigz} (package \code{gmp}),
+as character or as double; the latter only up to \eqn{2^{53}}{2^53}, since larger integers
+cannot be represented exactly as double.}
 
-\item{n}{An integer denoting the number of leaves of the sought tree.}
+\item{n}{An integer denoting the number of leaves of the sought tree (at most 2545).}
 }
 \value{
 \code{furnasI_inv} returns the unique tree (in phylo format) for
@@ -28,12 +30,11 @@ survey" by Fischer et al. (2023).\cr\cr
 \code{furnasI_inv} can be used e.g. to generate random rooted binary trees with a
 certain number of leaves. Also, the concept of assigning each rooted binary
 tree a unique tuple \eqn{(rank, n)} allows to store many trees with minimal
-storage use. \cr\cr
-For details on the Furnas rank, see 
-also Chapter 22 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_22).
+storage use.
 }
 \examples{
 furnasI_inv(rank=6,n=8)
+furnasI_inv(rank="100000000000000000000",n=60)
 
 }
 \references{

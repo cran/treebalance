@@ -4,14 +4,16 @@
 \alias{colPlaLab}
 \title{Calculation of the Colijn-Plazzotta rank for rooted binary trees}
 \usage{
-colPlaLab(tree)
+colPlaLab(tree, type = "bigz")
 }
 \arguments{
 \item{tree}{A rooted binary tree in phylo format.}
+
+\item{type}{A character string specifying whether the rank is returned exactly as
+big integer ("bigz", default, package \code{gmp}) or as "double" (only for \eqn{n\leq 9}{n<=9}).}
 }
 \value{
-\code{colPlaLab} returns the Colijn-Plazotta rank of the given tree. Since the values can get quite large, the
-function returns them in big.z format (package gmp).
+\code{colPlaLab} returns the Colijn-Plazzotta rank of the given tree.
 }
 \description{
 This function calculates the Colijn-Plazzotta rank \eqn{CP(T)} for a
@@ -26,14 +28,16 @@ of \eqn{T} corresponds to its position in the
 lexicographically sorted list of (\eqn{i,j}): (1),(1,1),(2,1),(2,2),(3,1),...
 The Colijn-Plazzotta rank of binary trees has been shown to be an imbalance index.\cr\cr
 For \eqn{n=1} the function returns \eqn{CP(T)=1} and a warning.\cr\cr
-Note that problems can sometimes arise even for trees with small leaf numbers due
-to the limited range of computable values (ranks can reach INF quickly). \cr\cr
-For details on the Colijn-Plazzotta rank, see 
-also Chapter 21 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_21).
+Note that the ranks grow very quickly with the number of leaves. Thus, they are computed
+exactly and returned by default in \eqn{big.z} format (package \eqn{gmp}). With
+\code{type="double"} the function stops for \eqn{n\geq 10}{n>=10}, since the ranks can
+then no longer be represented exactly as double. The function also stops if the rank
+would have more than about 5 million digits (e.g. caterpillar trees with more than 27 leaves).
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
 colPlaLab(tree)
+colPlaLab(ape::read.tree(text="((,),(,(,)));"), type="double")
 
 }
 \references{

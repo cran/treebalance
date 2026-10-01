@@ -21,9 +21,7 @@ denotes the depth of the leaf \eqn{x}, \eqn{V_{in}(T)}{V_in(T)} denotes the set 
 inner vertices in \eqn{T}, and \eqn{n_u} denotes the number of leaves
 in the pending subtree that is rooted at \eqn{u}. The Sackin index is an
 imbalance index.\cr\cr
-For \eqn{n=1} the function returns \eqn{S(T)=0} and a warning. \cr\cr
-For details on the Sackin index, see 
-also Chapter 5 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_5).
+For \eqn{n=1} the function returns \eqn{S(T)=0} and a warning.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

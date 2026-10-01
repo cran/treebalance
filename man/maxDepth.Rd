@@ -18,9 +18,7 @@ is at the same time its height \eqn{h(T)}. The tree must not necessarily be bina
 \eqn{h(T)} is defined as \deqn{h(T)=\max_{v\in V(T)} \delta(v)}{h(T)=max_{v in V(T)} depth(v)}
 with \eqn{\delta(v)}{depth(v)} being the depth of the vertex \eqn{v}.
 The maximum depth is an imbalance index.\cr\cr
-For \eqn{n=1} the function returns \eqn{h(T)=0} and a warning. \cr\cr
-For details on the maximum depth, see 
-also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
+For \eqn{n=1} the function returns \eqn{h(T)=0} and a warning.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")

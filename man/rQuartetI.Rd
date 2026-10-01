@@ -48,9 +48,7 @@ suggested the values \eqn{q_0=0} and \eqn{q_i=i} or \eqn{q_i=2^i} for \eqn{i=1,.
 The rooted quartet index \eqn{rQI(T)} of the tree \eqn{T} is then defined as
 the sum of the rQI-values of its rooted quartets:
 \deqn{rQI(T)=\sum_{Q\in P_4} rQI(T(Q))}{rQI(T)=\sum rQI(T(Q)) over Q in P_4}
-The rooted quartet index is a balance index. \cr\cr
-For details on the rooted quartet index, see 
-also Chapter 20 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_20).
+The rooted quartet index is a balance index.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -58,7 +56,7 @@ rQuartetI(tree)
 
 }
 \references{
-T. M. Coronado, A. Mir, F. Rossello, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
+T. M. Coronado, A. Mir, F. Rosselló, and G. Valiente.  A balance index for phylogenetic trees based on rooted quartets. Journal of Mathematical Biology, 79(3):1105-1148, 2019. doi: 10.1007/s00285-019-01377-w. URL https://doi.org/10.1007/s00285-019-01377-w.
 }
 \author{
 Sophie Kersting

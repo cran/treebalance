@@ -15,13 +15,11 @@ avgVertDep(tree)
 \description{
 This function calculates the average vertex depth \eqn{AVD(T)} for a given rooted
 tree \eqn{T}. The tree must not necessarily be binary. \eqn{AVD(T)} is defined as
-\deqn{AVD(T)=\frac{1}{|V(T)|}\cdot\sum_{x\in V(T)} \delta(x)}{AVD(T)=1/|V(T)|*\sum_{x\in V(T)} depth(x)} in
+\deqn{AVD(T)=\frac{1}{|V(T)|}\cdot\sum_{x\in V(T)} \delta(x)}{AVD(T)=1/|V(T)|*\sum_{x\in V(T)} \delta(x)} in
 which \eqn{V(T)} denotes the set of vertices of \eqn{T}, and \eqn{\delta(x)}{depth(x)}
-denotes the depth of the vertex \eqn{x}. The average vertex depth is a normalised version of the total path length and an
+denotes the depth of the vertex \eqn{x}. The average vertex depth is an
 imbalance index.\cr\cr
-For \eqn{n=1} the function returns \eqn{AVD(T)=0} and a warning. \cr\cr
-For details on the average vertex depth, see 
-also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
+For \eqn{n=1} the function returns \eqn{AVD(T)=0} and a warning.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,,),),(,)));")

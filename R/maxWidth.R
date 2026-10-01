@@ -5,9 +5,7 @@
 #' \eqn{maxWidth(T)} is defined as \deqn{maxWidth(T)=\max_{i=0,...,h(T)} w(i)}{maxWidth(T)=max_{i=0,...,h(T)} w(i)}
 #' in which \eqn{h(T)} denotes the height of the tree \eqn{T} and \eqn{w(i)} denotes
 #' the number of vertices in \eqn{T} that have depth \eqn{i}. The maximum width
-#' is a balance index. \cr\cr
-#' For details on the maximum width, see 
-#' also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
+#' is a balance index.
 #'
 #' @param tree A rooted tree in phylo format.
 #'

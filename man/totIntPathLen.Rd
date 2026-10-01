@@ -18,9 +18,7 @@ tree \eqn{T}. The tree must not necessarily be binary. \eqn{TIP(T)} is defined a
 \deqn{TIP(T)=\sum_{x\in V_{in}(T)} \delta(x)}{TIP(T)=\sum_{x in V_in(T)} depth(x)} in
 which \eqn{V_{in}(T)}{V_in(T)} denotes the set of inner vertices of \eqn{T}, and \eqn{\delta(x)}{depth(x)}
 denotes the depth of the vertex \eqn{x}. The total internal path length is an
-imbalance index. \cr\cr
-For details on the total internal path length, see 
-also Chapter 23 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_23).
+imbalance index.
 }
 \examples{
 tree <- ape::read.tree(text="((((,),),(,)),(((,,),),(,)));")

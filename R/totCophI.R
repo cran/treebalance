@@ -8,9 +8,7 @@
 #' denotes the set of all inner vertices exept the root and \eqn{n_u} denotes the
 #' number of descendant leaves of \eqn{u}. The second formula is useful for efficient
 #' computation of \eqn{TCI(T)}. The total cophenetic index is an imbalance index.\cr\cr
-#' For \eqn{n=1} the function returns \eqn{TCI(T)=0}. \cr\cr
-#' For details on the total cophenetic index, see 
-#' also Chapter 8 in "Tree balance indices: a comprehensive survey" (https://doi.org/10.1007/978-3-031-39800-1_8).
+#' For \eqn{n=1} the function returns \eqn{TCI(T)=0}.
 #'
 #' @param tree A rooted tree in phylo format.
 #'
@@ -18,7 +16,7 @@
 #'
 #' @author Sophie Kersting
 #'
-#' @references A. Mir, F. Rossello, and L. Rotger. A new balance index for phylogenetic trees. Mathematical Bio-sciences, 241(1):125-136, 2013. doi: 10.1016/j.mbs.2012.10.005.
+#' @references A. Mir, F. Rosselló, and L. Rotger. A new balance index for phylogenetic trees. Mathematical Bio-sciences, 241(1):125-136, 2013. doi: 10.1016/j.mbs.2012.10.005.
 #'
 #' @examples
 #' tree <- ape::read.tree(text="((((,),),(,)),(((,),),(,)));")
@@ -32,7 +30,7 @@
 totCophI <- function(tree){
   if (!inherits(tree, "phylo")) stop("The input tree must be in phylo-format.")
   n <- length(tree$tip.label)
-  if(n == 1 || n==2) {return(0)}
+  if(n == 1 || n==2 || tree$Nnode == 1) {return(0)}
 
   nv_vec <- get.subtreesize(tree)[(n+2):(n+tree$Nnode)]
   tci_val <- sapply(nv_vec, function(x) choose(x,2))
